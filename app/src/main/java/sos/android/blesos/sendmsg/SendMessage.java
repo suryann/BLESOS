@@ -20,26 +20,39 @@ public class SendMessage {
     public SendMessage(ArrayList<String> receipientList, String message) {
         this.message = message;
         if (!receipientList.isEmpty()) {
-            for (String msgReceiver : receipientList) {
-                sendSms(msgReceiver);
+            for (final String msgReceiver : receipientList) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        sendSMS(msgReceiver);
+                    }
+                }).start();
             }
         }
     }
 
-    public void sendSms(String phonenumber) {
-        SmsManager manager = SmsManager.getDefault();
+    private void sendSMS(String phoneNumber) {
+        ArrayList<PendingIntent> sentPendingIntents = new ArrayList<PendingIntent>();
+        ArrayList<PendingIntent> deliveredPendingIntents = new ArrayList<PendingIntent>();
+        PendingIntent sentPI = PendingIntent.getBroadcast(BaseApplication.appContext, 0,
+                new Intent(BaseApplication.appContext, SmsSentReceiver.class), 0);
+        PendingIntent deliveredPI = PendingIntent.getBroadcast(BaseApplication.appContext, 0,
+                new Intent(BaseApplication.appContext, SmsDeliveredReceiver.class), 0);
+        try {
+            SmsManager sms = SmsManager.getDefault();
+            ArrayList<String> mSMSMessage = sms.divideMessage(message);
+            for (int i = 0; i < mSMSMessage.size(); i++) {
+                sentPendingIntents.add(i, sentPI);
+                deliveredPendingIntents.add(i, deliveredPI);
+                sms.sendTextMessage(phoneNumber, null, message, sentPI, deliveredPI);
+            }
 
-        PendingIntent piSend = PendingIntent.getBroadcast(BaseApplication.appContext, 0, new Intent(Constant.SMS_SENT), 0);
-        PendingIntent piDelivered = PendingIntent.getBroadcast(BaseApplication.appContext, 0, new Intent(Constant.SMS_DELIVERED), 0);
+            sms.sendMultipartTextMessage(phoneNumber, null, mSMSMessage,
+                    sentPendingIntents, deliveredPendingIntents);
 
-        int length = message.length();
-
-        if (length > Constant.MAX_SMS_MESSAGE_LENGTH) {
-            ArrayList<String> messagelist = manager.divideMessage(message);
-
-            manager.sendMultipartTextMessage(phonenumber, null, messagelist, null, null);
-        } else {
-            manager.sendTextMessage(phonenumber, null, message, piSend, piDelivered);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
     }
 }

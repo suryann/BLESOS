@@ -120,6 +120,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             public void onClick(View view) {
                 getLocation();
                 sendSms();
+                Toast.makeText(getBaseContext(), "User Location has been send through sms", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -253,7 +254,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         }
 
         mgr.requestLocationUpdates(best, 1500, 1, this);
-        location = mgr.getLastKnownLocation(best);
+//        location = mgr.getLastKnownLocation(best);
+        location = mgr.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        if(location == null)
+            location = mgr.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
         Log.v("","Latitude  :		" + location.getLatitude() + "\n");
         Log.v("","Langitude :		"+location.getLongitude()+"\n");
 
@@ -285,7 +290,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         String message;
         ArrayList<String> receipientList = new ArrayList<>();
         message = "key : "+getResources().getString(R.string.key)
-                +" ; google Link for Map : "+Constant.GOOGLELINK+ location.getLatitude()+","+location.getLongitude()
+                +" ; GoogleLink for Map : "+Constant.GOOGLELINK+ location.getLatitude()+","+location.getLongitude()
                 +" ; Address : "+getAddress(location);
 
         if(users!=null)

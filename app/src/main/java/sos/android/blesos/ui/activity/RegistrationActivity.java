@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -148,6 +149,7 @@ public class RegistrationActivity extends AppCompatActivity {
         ArrayList<String> receipientList = new ArrayList<>();
         receipientList.add(storedUserName);
         new SendMessage(receipientList, "Your Password for SoS is " + storedUserPassword);
+        Toast.makeText(getBaseContext(), "your Password has been sent through sms", Toast.LENGTH_LONG).show();
     }
 
     private void showAlertDialog(final String textToShow) {
