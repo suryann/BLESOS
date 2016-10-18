@@ -15,7 +15,7 @@ import sos.android.blesos.util.Utils;
 
 public class MessageReceiver extends BroadcastReceiver {
 
-    private ArrayList<String> messages;
+    private String [] messages;
     private Context context;
 
     @Override
@@ -39,9 +39,8 @@ public class MessageReceiver extends BroadcastReceiver {
                     String message = currentMessage.getDisplayMessageBody();
 
                     if (message.contains(context.getResources().getString(R.string.key))) {
-                        messages = new ArrayList<String>();
                         Utils.createNotification(context.getString(R.string.app_name), message);
-                        messages.toArray(message.split(";"));
+                        messages = message.split(";");
                         for (String msg : messages) {
                             if(msg.contains(" GoogleLink ")){
                                 googleLink = msg.split(":");
@@ -60,9 +59,8 @@ public class MessageReceiver extends BroadcastReceiver {
     }
 
     public void openMap(String Googlelink) {
-        Uri uri = Uri.parse("smsto:");
-        Intent it = new Intent(Intent.ACTION_SENDTO, uri);
-        it.putExtra("sms_body", Googlelink);
-        context.startActivity(it);
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(Googlelink));
+        intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
+        context.startActivity(intent);
     }
 }
