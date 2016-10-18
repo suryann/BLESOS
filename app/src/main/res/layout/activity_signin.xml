@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.activity.RegistrationActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/activitySignin_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/screenTitle_signin"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/text_icons" />
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="11dp"
+        android:paddingRight="11dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <EditText
+            android:id="@+id/activitySignin_editTextName"
+            style="@style/ProfileEditText"
+            android:layout_marginTop="32dp"
+            android:drawableLeft="@drawable/profile_username_icon"
+            android:drawableStart="@drawable/profile_username_icon"
+            android:hint="@string/activitySignin_editTextName_hint"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/activitySignin_editTextPassword"
+            style="@style/ProfileEditText"
+            android:drawableLeft="@drawable/profile_password_icon"
+            android:drawableStart="@drawable/profile_password_icon"
+            android:hint="@string/activitySignin_editTextPassword_hint"
+            android:inputType="textPassword" />
+
+        <Button
+            android:id="@+id/activitySignin_buttonSignin"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="23dp"
+            android:layout_marginRight="23dp"
+            android:layout_marginTop="64dp"
+            android:text="@string/activitySignin_buttonSignin"
+            android:textAppearance="@style/TextAppearance.AppCompat.Button"
+            android:textColor="@android:color/white"
+            tools:enabled="true" />
+        <TextView
+            android:id="@+id/activitySignin_forgetpassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/activitySignin_forget_password"
+            android:textColor="@color/text_icons" />
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

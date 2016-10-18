@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <EditText
+        android:id="@+id/add_detail_name"
+        style="@style/ProfileEditText"
+        android:layout_marginTop="5dp"
+        android:drawableLeft="@drawable/profile_username_icon"
+        android:drawableStart="@drawable/profile_username_icon"
+        android:hint="@string/add_detail_name"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/add_detail_mobileNumber"
+        style="@style/ProfileEditText"
+        android:drawableLeft="@drawable/profile_password_icon"
+        android:drawableStart="@drawable/profile_password_icon"
+        android:hint="@string/add_detail_mobilenumber"
+        android:inputType="phone" />
+
+    <Button
+        android:id="@+id/add_detail_addbutton"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="23dp"
+        android:layout_marginRight="23dp"
+        android:text="@string/add_detail_enter"
+        android:textAppearance="@style/TextAppearance.AppCompat.Button"
+        android:textColor="@android:color/white"
+        tools:enabled="true" />
+
+</LinearLayout>
