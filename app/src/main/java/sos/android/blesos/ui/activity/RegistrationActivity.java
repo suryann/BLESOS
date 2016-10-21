@@ -115,7 +115,8 @@ public class RegistrationActivity extends AppCompatActivity {
             SharedPreferenceUtil.getInstance().setStringValue(SharedPreferenceUtil.USER_NAME, userName);
             SharedPreferenceUtil.getInstance().setStringValue(SharedPreferenceUtil.USER_PASSWORD, passwordTxt);
 
-            startActivity(new Intent(RegistrationActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+            startActivity(new Intent(RegistrationActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+            finish();
         } else {
             Utils.showAlertDialog(getBaseContext(), "One of the field is empty are the fields are mismatched");
         }
@@ -142,6 +143,7 @@ public class RegistrationActivity extends AppCompatActivity {
             showAlertDialog("Please check your Password is mismatched");
         } else {
             startActivity(new Intent(RegistrationActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            finish();
         }
     }
 

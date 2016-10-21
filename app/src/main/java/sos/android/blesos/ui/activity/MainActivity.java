@@ -290,9 +290,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         ArrayList<String> receipientList = new ArrayList<>();
         message = "key : "+getResources().getString(R.string.key)
                 +" ; GoogleLink for Map : "+Constant.GOOGLELINK+ location.getLatitude()+","+location.getLongitude()
-                +" ; Address : "+getAddress(location)+
-                " ; Latitude : "+ location.getLatitude()+
-                " ; Longitude : "+ location.getLongitude();
+                +" ; Latitude : "+ location.getLatitude()
+                +" ; Longitude : "+ location.getLongitude()
+                +" ; Address : "+getAddress(location);
 
         if(users!=null)
         for (User user : users){
