@@ -3,12 +3,8 @@ package sos.android.blesos.receivers;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.telephony.SmsMessage;
-import android.util.Log;
-
-import java.util.ArrayList;
 
 import sos.android.blesos.R;
 import sos.android.blesos.util.Utils;
@@ -31,6 +27,8 @@ public class MessageReceiver extends BroadcastReceiver {
                 final Object[] pdusObj = (Object[]) bundle.get("pdus");
                 String googleLink[];
                 String address[];
+                String Latitude = null;
+                String Longitude = null;
 
                 for (int i = 0; i < pdusObj.length; i++) {
                     SmsMessage currentMessage = SmsMessage.createFromPdu((byte[]) pdusObj[i]);
@@ -39,15 +37,21 @@ public class MessageReceiver extends BroadcastReceiver {
                     String message = currentMessage.getDisplayMessageBody();
 
                     if (message.contains(context.getResources().getString(R.string.key))) {
-                        Utils.createNotification(context.getString(R.string.app_name), message);
                         messages = message.split(";");
                         for (String msg : messages) {
                             if(msg.contains(" GoogleLink ")){
                                 googleLink = msg.split(":");
-                                openMap(googleLink[1]);
+                                Utils.openMap(googleLink[1]);
+                                Utils.createNotification(context.getString(R.string.app_name), message, googleLink[1]);
+                            }
+                            if(msg.contains("Latitude")){
+                                Latitude = msg.split(":")[1];
+                            }
+                            if(msg.contains("Longitude")){
+                                Longitude = msg.split(":")[1];
                             }
                         }
-
+                        Utils.showRoute(Latitude, Longitude);
                     }
 
                 } // end for loop
@@ -58,9 +62,4 @@ public class MessageReceiver extends BroadcastReceiver {
         }
     }
 
-    public void openMap(String Googlelink) {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(Googlelink));
-        intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
-        context.startActivity(intent);
-    }
 }

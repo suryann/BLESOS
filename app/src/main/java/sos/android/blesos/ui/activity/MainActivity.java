@@ -254,7 +254,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         }
 
         mgr.requestLocationUpdates(best, 1500, 1, this);
-//        location = mgr.getLastKnownLocation(best);
         location = mgr.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         if(location == null)
             location = mgr.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
@@ -291,7 +290,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         ArrayList<String> receipientList = new ArrayList<>();
         message = "key : "+getResources().getString(R.string.key)
                 +" ; GoogleLink for Map : "+Constant.GOOGLELINK+ location.getLatitude()+","+location.getLongitude()
-                +" ; Address : "+getAddress(location);
+                +" ; Address : "+getAddress(location)+
+                " ; Latitude : "+ location.getLatitude()+
+                " ; Longitude : "+ location.getLongitude();
 
         if(users!=null)
         for (User user : users){
