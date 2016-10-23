@@ -60,6 +60,7 @@ public class MessageReceiver extends WakefulBroadcastReceiver {
                             }
                         }
                         Utils.showRoute(Latitude, Longitude);
+                        Utils.playSirenSound();
                     }
 
                 } // end for loop

@@ -13,6 +13,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationManager;
+import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
@@ -29,6 +30,7 @@ import sos.android.blesos.application.BaseApplication;
 
 public class Utils {
     private static final int notificationID = 1337;
+    private static MediaPlayer sirenMediaPlayer;
 
     public static void showAlertDialog(final Context context, final String textToShow) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -74,7 +76,6 @@ public class Utils {
         notificationManager.notify(notificationID, notificationBuilder.build());
     }
 
-
     public static void openMap(String Googlelink) {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(Googlelink));
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -112,5 +113,12 @@ public class Utils {
         if(location!=null)
             location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         return location;
+    }
+
+    public static void playSirenSound() {
+        if (sirenMediaPlayer == null) {
+            sirenMediaPlayer = MediaPlayer.create(BaseApplication.appContext, R.raw.fps);
+        }
+        sirenMediaPlayer.start();
     }
 }

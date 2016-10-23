@@ -37,6 +37,7 @@ import sos.android.blesos.db.dao.NoSqlDao;
 import sos.android.blesos.db.model.User;
 import sos.android.blesos.sendmsg.SendMessage;
 import sos.android.blesos.util.Constant;
+import sos.android.blesos.util.Utils;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener, LocationListener {
 
@@ -257,6 +258,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         location = mgr.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         if(location == null)
             location = mgr.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        if(location == null){
+            location = Utils.getLocation();
+        }
 
         Log.v("","Latitude  :		" + location.getLatitude() + "\n");
         Log.v("","Langitude :		"+location.getLongitude()+"\n");
@@ -290,8 +294,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         ArrayList<String> receipientList = new ArrayList<>();
         message = "key : "+getResources().getString(R.string.key)
                 +" ; GoogleLink for Map : "+Constant.GOOGLELINK+ location.getLatitude()+","+location.getLongitude()
-                +" ; Latitude : "+ location.getLatitude()
-                +" ; Longitude : "+ location.getLongitude()
+                +" ; Latitude : "+ (int) (location.getLatitude() * 1E6)
+                +" ; Longitude : "+ (int) (location.getLongitude() * 1E6)
                 +" ; Address : "+getAddress(location);
 
         if(users!=null)
