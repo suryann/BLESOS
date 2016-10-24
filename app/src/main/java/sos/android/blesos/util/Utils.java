@@ -23,6 +23,7 @@ import java.util.Locale;
 
 import sos.android.blesos.R;
 import sos.android.blesos.application.BaseApplication;
+import sos.android.blesos.ui.activity.BaseActivity;
 
 /**
  * Created by soorianarayanan on 16/10/16.
@@ -30,6 +31,7 @@ import sos.android.blesos.application.BaseApplication;
 
 public class Utils {
     private static final int notificationID = 1337;
+    private static final int PERMISSION_LOCATION = 20;
     private static MediaPlayer sirenMediaPlayer;
 
     public static void showAlertDialog(final Context context, final String textToShow) {
@@ -108,9 +110,14 @@ public class Utils {
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
 //            return TODO;
+
+            ActivityCompat.requestPermissions(BaseActivity.activity, new String[]{
+                            Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION},
+                    PERMISSION_LOCATION);
         }
         location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        if(location!=null)
+        if (location == null)
             location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         return location;
     }
