@@ -9,13 +9,14 @@ import android.util.Log;
 import android.widget.Toast;
 
 import sos.android.blesos.R;
+import sos.android.blesos.ui.activity.CallBackActivity;
+import sos.android.blesos.util.Constant;
 import sos.android.blesos.util.Utils;
 
 public class MessageReceiver extends WakefulBroadcastReceiver {
 
     private static final String TAG = MessageReceiver.class.getName();
     private String [] messages;
-    private Context context;
 
     String Latitude = null;
     String Longitude = null;
@@ -25,17 +26,17 @@ public class MessageReceiver extends WakefulBroadcastReceiver {
         // TODO: This method is called when the BroadcastReceiver is receiving
         // Retrieves a map of extended data from the intent.
         final Bundle bundle = intent.getExtras();
-        this.context = context;
         try {
 
             if (bundle != null) {
 
                 final Object[] pdusObj = (Object[]) bundle.get("pdus");
                 String googleLink[];
+                String phoneNumber;
 
                 for (int i = 0; i < pdusObj.length; i++) {
                     SmsMessage currentMessage = SmsMessage.createFromPdu((byte[]) pdusObj[i]);
-                    String phoneNumber = currentMessage.getDisplayOriginatingAddress();
+                    phoneNumber = currentMessage.getDisplayOriginatingAddress();
                     String message = currentMessage.getDisplayMessageBody();
 
                     if (message.contains(context.getResources().getString(R.string.key))) {
@@ -50,17 +51,22 @@ public class MessageReceiver extends WakefulBroadcastReceiver {
                                 Toast.makeText(context, "googleLink : "+sendGoogleLink,Toast.LENGTH_LONG).show();
                                 Utils.createNotification(context.getString(R.string.app_name), message, sendGoogleLink);
                             }
-                            if(msg.contains("Latitude")){
+                            if(msg.contains(Constant.LATITUDE)){
                                 Latitude = msg.split(":")[1];
-                                Log.v(TAG, "Latitude  "+Latitude);
+                                Log.v(TAG, Constant.LATITUDE+Latitude);
                             }
-                            if(msg.contains("Longitude")){
+                            if(msg.contains(Constant.LONGITUDE)){
                                 Longitude = msg.split(":")[1];
-                                Log.v(TAG, "Longitude  "+Longitude);
+                                Log.v(TAG, Constant.LONGITUDE+Longitude);
                             }
                         }
-                        Utils.showRoute(Latitude, Longitude);
-                        Utils.playSirenSound();
+                        context.startActivity(new Intent(context, CallBackActivity.class).
+                                putExtra(Constant.LATITUDE,Latitude).
+                                putExtra(Constant.LONGITUDE, Longitude).
+                                putExtra(Constant.PHONENUMBER, phoneNumber).
+                                setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+//                        Utils.showRoute(Latitude, Longitude);
+//                        Utils.playSirenSound();
                     }
 
                 } // end for loop
@@ -70,5 +76,7 @@ public class MessageReceiver extends WakefulBroadcastReceiver {
             e.printStackTrace();
         }
     }
+
+
 
 }

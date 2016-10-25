@@ -22,5 +22,10 @@
     <string name="add_detail_enter">Add</string>
 
     <string name="view_detail_delete">Delete</string>
+    <string name="google_class_name">com.google.android.apps.maps</string>
+    <string name="google_class_nametwo">com.google.android.maps.MapsActivity</string>
+    <string name="maplink_sadd">http://maps.google.com/maps?saddr=</string>
+    <string name="desti_add"><![CDATA[&daddr=]]></string>
+    <string name="tel">tel:</string>
 
 </resources>

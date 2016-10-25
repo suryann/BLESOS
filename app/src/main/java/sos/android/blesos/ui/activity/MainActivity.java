@@ -97,14 +97,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 user = new User();
                 String name = nameAdd.getText().toString();
                 String mobile = mobileNumber.getText().toString();
-                if(name.isEmpty() && mobile.isEmpty()){
-                    Toast.makeText(getBaseContext(),"name and mobile number should not be empty", Toast.LENGTH_LONG).show();
-                } else if(users!=null && users.size()>4) {
-                    Toast.makeText(getBaseContext(),"number of user limit is 5 only", Toast.LENGTH_LONG).show();
+                if (name.isEmpty() && mobile.isEmpty()) {
+                    Toast.makeText(getBaseContext(), "name and mobile number should not be empty", Toast.LENGTH_LONG).show();
+                } else if (users != null && users.size() > 4) {
+                    Toast.makeText(getBaseContext(), "number of user limit is 5 only", Toast.LENGTH_LONG).show();
                 } else {
                     user.setName(name);
                     user.setMobileNumber(mobile);
-                    if(users == null)
+                    if (users == null)
                         users = new ArrayList<User>();
                     users.add(user);
                     NoSqlDao.getInstance().insertValues(Constant.user, users);
@@ -182,17 +182,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     }
 
-    private void showUser(){
+    private void showUser() {
         View v;
         mainActivityShowLayout.removeAllViews();
-        if(users!=null && !users.isEmpty()){
-            for(final User user : users){
+        if (users != null && !users.isEmpty()) {
+            for (final User user : users) {
                 String userName = user.getName();
                 String userMobileNumber = user.getMobileNumber();
                 v = getLayoutInflater().inflate(R.layout.view_detail, null);
-                TextView name = (TextView)v.findViewById(R.id.view_detail_name);
-                TextView mobileNumber = (TextView)v.findViewById(R.id.view_detail_mobile_number);
-                final Button delete = (Button)v.findViewById(R.id.view_detail_delete);
+                TextView name = (TextView) v.findViewById(R.id.view_detail_name);
+                TextView mobileNumber = (TextView) v.findViewById(R.id.view_detail_mobile_number);
+                final Button delete = (Button) v.findViewById(R.id.view_detail_delete);
                 mainActivityShowLayout.addView(v);
 
                 name.setText(userName);
@@ -219,7 +219,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     @Override
     public void onLocationChanged(Location location) {
-
+        this.location = location;
     }
 
     @Override
@@ -255,20 +255,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         }
 
         mgr.requestLocationUpdates(best, 1500, 1, this);
-        location = mgr.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        if(location == null)
-            location = mgr.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-        if(location == null){
-            location = Utils.getLocation();
+        if (location == null) {
+            location = mgr.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            if (location == null)
+                location = mgr.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            if (location == null) {
+                location = Utils.getLocation();
+            }
         }
-
-        Log.v("","Latitude  :		" + location.getLatitude() + "\n");
-        Log.v("","Langitude :		"+location.getLongitude()+"\n");
+        Log.v("", "Latitude  :		" + location.getLatitude() + "\n");
+        Log.v("", "Langitude :		" + location.getLongitude() + "\n");
 
         return location;
     }
 
-    public void checkPermissionSMS(){
+    public void checkPermissionSMS() {
 
         String[] mPermission = {Manifest.permission.READ_CONTACTS, Manifest.permission.READ_SMS,
                 Manifest.permission.ACCESS_FINE_LOCATION,
@@ -281,7 +282,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) !=
                         PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) !=
-                        PackageManager.PERMISSION_GRANTED ) {
+                        PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, mPermission,
                     REQUEST_CODE_PERMISSION);
         } else {
@@ -289,33 +290,31 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         }
     }
 
-    private void sendSms(){
+    private void sendSms() {
         String message;
         ArrayList<String> receipientList = new ArrayList<>();
-        message = "key : "+getResources().getString(R.string.key)
-                +" ; GoogleLink for Map : "+Constant.GOOGLELINK+ location.getLatitude()+","+location.getLongitude()
-                +" ; Latitude : "+ (int) (location.getLatitude() * 1E6)
-                +" ; Longitude : "+ (int) (location.getLongitude() * 1E6)
-                +" ; Address : "+getAddress(location);
+        message = "key : " + getResources().getString(R.string.key)
+                + " ; GoogleLink for Map : " + Constant.GOOGLELINK + location.getLatitude() + "," + location.getLongitude()
+                + " ; Latitude : " + (int) (location.getLatitude() * 1E6)
+                + " ; Longitude : " + (int) (location.getLongitude() * 1E6)
+                + " ; Address : " + getAddress(location);
 
-        if(users!=null)
-        for (User user : users){
-            receipientList.add(user.getMobileNumber());
-        }
+        if (users != null)
+            for (User user : users) {
+                receipientList.add(user.getMobileNumber());
+            }
         new SendMessage(receipientList, message);
     }
 
-    private String getAddress(Location location){
+    private String getAddress(Location location) {
         String address = null;
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
         try {
             List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-            for(int j=0;j<=addresses.size()-1;)
-            {
+            for (int j = 0; j <= addresses.size() - 1; ) {
                 Address firstadd = addresses.get(j);
-                for(int i=0;i<=firstadd.getMaxAddressLineIndex();)
-                {
-                    address=address+firstadd.getAddressLine(i).toString();
+                for (int i = 0; i <= firstadd.getMaxAddressLineIndex(); ) {
+                    address = address + firstadd.getAddressLine(i).toString();
 //    			   log("       "+firstadd.getAddressLine(i)+"\n");
                     i++;
                 }

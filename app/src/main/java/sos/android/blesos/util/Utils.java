@@ -13,6 +13,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationManager;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -123,6 +124,12 @@ public class Utils {
     }
 
     public static void playSirenSound() {
+        AudioManager am =
+                (AudioManager) BaseApplication.appContext.getSystemService(Context.AUDIO_SERVICE);
+        am.setStreamVolume(
+                AudioManager.STREAM_MUSIC,
+                am.getStreamMaxVolume(AudioManager.STREAM_MUSIC),
+                0);
         if (sirenMediaPlayer == null) {
             sirenMediaPlayer = MediaPlayer.create(BaseApplication.appContext, R.raw.fps);
         }
