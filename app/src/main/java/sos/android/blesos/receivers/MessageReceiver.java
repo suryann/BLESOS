@@ -66,7 +66,7 @@ public class MessageReceiver extends WakefulBroadcastReceiver {
                                 putExtra(Constant.PHONENUMBER, phoneNumber).
                                 setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
 //                        Utils.showRoute(Latitude, Longitude);
-//                        Utils.playSirenSound();
+                        Utils.playSirenSound();
                     }
 
                 } // end for loop
