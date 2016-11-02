@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/White"
+    android:padding="@dimen/spacing_small">
+
+    <TextView
+        android:id="@+id/ble__tv__device_connection_state"
+        style="@style/primary_text_style.robotoLight"
+        android:layout_centerVertical="true"
+        android:textAppearance="?android:textAppearanceSmall"
+        tools:text="Connection State" />
+</RelativeLayout>

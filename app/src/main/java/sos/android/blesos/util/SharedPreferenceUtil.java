@@ -17,6 +17,8 @@ public class SharedPreferenceUtil {
     public static String USER_NAME = "user_name";
     public static String USER_PASSWORD = "user_password";
 
+    public static String MAC_ADD = "mac_add";
+
     private static SharedPreferenceUtil instance;
 
     private SharedPreferences mSharedPrefs;

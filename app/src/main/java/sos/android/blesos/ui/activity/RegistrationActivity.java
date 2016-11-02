@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import sos.android.blesos.R;
 import sos.android.blesos.sendmsg.SendMessage;
 import sos.android.blesos.util.SharedPreferenceUtil;
+import sos.android.blesos.util.Utility;
 import sos.android.blesos.util.Utils;
 
 public class RegistrationActivity extends AppCompatActivity {
@@ -35,13 +36,9 @@ public class RegistrationActivity extends AppCompatActivity {
     private String storedUserName;
     private String storedUserPassword;
 
-    private Context context;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        context = getBaseContext();
 
         storedUserName = SharedPreferenceUtil.getInstance().getStringValue(SharedPreferenceUtil.USER_NAME, "");
         storedUserPassword = SharedPreferenceUtil.getInstance().getStringValue(SharedPreferenceUtil.USER_PASSWORD, "");
@@ -151,7 +148,7 @@ public class RegistrationActivity extends AppCompatActivity {
         ArrayList<String> receipientList = new ArrayList<>();
         receipientList.add(storedUserName);
         new SendMessage(receipientList, "Your Password for SoS is " + storedUserPassword);
-        Toast.makeText(getBaseContext(), "your Password has been sent through sms", Toast.LENGTH_LONG).show();
+        Utility.showToast("your Password has been sent through sms");
     }
 
     private void showAlertDialog(final String textToShow) {

@@ -13,7 +13,9 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.telephony.SmsManager;
@@ -33,15 +35,20 @@ import java.util.List;
 import java.util.Locale;
 
 import sos.android.blesos.R;
+import sos.android.blesos.bleControler.ActivityController;
 import sos.android.blesos.db.dao.NoSqlDao;
 import sos.android.blesos.db.model.User;
+import sos.android.blesos.receivers.ScanReceiver;
 import sos.android.blesos.sendmsg.SendMessage;
 import sos.android.blesos.util.Constant;
+import sos.android.blesos.util.Utility;
 import sos.android.blesos.util.Utils;
 
+@RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
 public class MainActivity extends BaseActivity implements View.OnClickListener, LocationListener {
 
-    private ArrayList<User> users;
+    private static final int PERMISSION_CALL = 10;
+    private static ArrayList<User> users;
     private User user;
     private EditText nameAdd;
     private EditText mobileNumber;
@@ -98,9 +105,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 String name = nameAdd.getText().toString();
                 String mobile = mobileNumber.getText().toString();
                 if (name.isEmpty() && mobile.isEmpty()) {
-                    Toast.makeText(getBaseContext(), "name and mobile number should not be empty", Toast.LENGTH_LONG).show();
+                    Utility.showToast("name and mobile number should not be empty");
                 } else if (users != null && users.size() > 4) {
-                    Toast.makeText(getBaseContext(), "number of user limit is 5 only", Toast.LENGTH_LONG).show();
+                    Utility.showToast("number of user limit is 5 only");
                 } else {
                     user.setName(name);
                     user.setMobileNumber(mobile);
@@ -121,7 +128,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             public void onClick(View view) {
                 getLocation();
                 sendSms();
-                Toast.makeText(getBaseContext(), "User Location has been send through sms", Toast.LENGTH_LONG).show();
+                Utility.showToast("User Location has been send through sms");
             }
         });
 
@@ -171,6 +178,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            ActivityController.INSTANCE.launchActivity(this, DeviceScanActivity.class);
             return true;
         }
 
@@ -252,6 +260,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             //                                          int[] grantResults)
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
+            ActivityCompat.requestPermissions(BaseActivity.activity, new String[]{
+                            Manifest.permission.CALL_PHONE,},
+                    PERMISSION_CALL);
         }
 
         mgr.requestLocationUpdates(best, 1500, 1, this);
@@ -297,7 +308,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 + " ; GoogleLink for Map : " + Constant.GOOGLELINK + location.getLatitude() + "," + location.getLongitude()
                 + " ; Latitude : " + (int) (location.getLatitude() * 1E6)
                 + " ; Longitude : " + (int) (location.getLongitude() * 1E6)
-                + " ; Address : " + getAddress(location);
+                + " ; Address : " + getAddress(this, location);
 
         if (users != null)
             for (User user : users) {
@@ -306,9 +317,25 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         new SendMessage(receipientList, message);
     }
 
-    private String getAddress(Location location) {
+    public static void sendSms(Context context, Location location) {
+        String message;
+        ArrayList<String> receipientList = new ArrayList<>();
+        message = "key : " + context.getResources().getString(R.string.key)
+                + " ; GoogleLink for Map : " + Constant.GOOGLELINK + location.getLatitude() + "," + location.getLongitude()
+                + " ; Latitude : " + (int) (location.getLatitude() * 1E6)
+                + " ; Longitude : " + (int) (location.getLongitude() * 1E6)
+                + " ; Address : " + getAddress(context, location);
+
+        if (users != null)
+            for (User user : users) {
+                receipientList.add(user.getMobileNumber());
+            }
+        new SendMessage(receipientList, message);
+    }
+
+    private static String getAddress(Context cotext, Location location) {
         String address = null;
-        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        Geocoder geocoder = new Geocoder(cotext, Locale.getDefault());
         try {
             List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
             for (int j = 0; j <= addresses.size() - 1; ) {

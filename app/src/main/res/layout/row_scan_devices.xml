@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    card_view:cardBackgroundColor="@color/White"
+    card_view:cardCornerRadius="0dp"
+    card_view:cardUseCompatPadding="true"
+    card_view:contentPadding="@dimen/spacing_small">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/grey_selector">
+
+        <ImageView
+            android:id="@+id/scan__iv_ble"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/cirlce_shape_gray"
+            android:src="@drawable/ic_action_ble" />
+
+
+        <!--Device name-->
+        <TextView
+            android:id="@+id/scan__tv__name"
+            style="@style/primary_text_style.robotoRegular"
+            android:layout_marginLeft="@dimen/spacing_small"
+            android:layout_toRightOf="@+id/scan__iv_ble"
+            tools:text="Name" />
+
+        <!--Device address-->
+        <TextView
+            android:id="@+id/scan__tv__address"
+            style="@style/primary_text_style.robotoLight"
+            android:layout_below="@+id/scan__tv__name"
+            android:layout_marginLeft="@dimen/spacing_small"
+            android:layout_toRightOf="@+id/scan__iv_ble"
+            tools:text="Address" />
+
+        <!--Device connection state-->
+        <TextView
+            android:id="@+id/scan__tv__connection_state"
+            style="@style/primary_text_style.robotoThin"
+            android:layout_below="@+id/scan__tv__address"
+            android:layout_marginLeft="@dimen/spacing_small"
+            android:layout_toRightOf="@+id/scan__iv_ble"
+            tools:text="Connection state" />
+
+        <!--Device bond state-->
+        <TextView
+            android:id="@+id/scan__tv__bond_state"
+            style="@style/primary_text_style.robotoThin"
+            android:layout_below="@+id/scan__tv__connection_state"
+            android:layout_marginLeft="@dimen/spacing_small"
+            android:layout_toRightOf="@+id/scan__iv_ble"
+            tools:text="Bond state" />
+
+        <Button
+            android:id="@+id/scan__btn__connect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/btn_green_selector"
+            android:text="@string/btn__lbl__connect"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/LimeGreen" />
+
+        <Button
+            android:id="@+id/scan__btn__store"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/scan__btn__connect"
+            android:background="@drawable/btn_green_selector"
+            android:text="@string/btn__lbl__store"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/LimeGreen" />
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

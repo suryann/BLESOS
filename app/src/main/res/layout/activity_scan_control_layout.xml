@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/White"
+        android:orientation="vertical"
+        android:padding="@dimen/spacing_small">
+
+        <!--State-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_tiny">
+
+            <TextView
+                android:id="@+id/scan__tv__connection_state"
+                style="@style/primary_text_style.robotoLight"
+                android:layout_alignParentLeft="true"
+                android:textAllCaps="true"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textColor="@color/colorPrimary"
+                tools:text="Disconnected" />
+
+            <TextView
+                android:id="@+id/scan__tv__bond_state"
+                style="@style/primary_text_style.robotoThin"
+                android:layout_below="@+id/scan__tv__connection_state"
+                android:textAllCaps="true"
+                android:textColor="@color/colorPrimary"
+                android:textAppearance="?android:textAppearanceSmall"
+                tools:text="Bond State" />
+
+            <TextView
+                android:id="@+id/scan__tv__device_address"
+                style="@style/primary_text_style.robotoLight"
+                android:layout_alignParentRight="true"
+                android:gravity="end"
+                android:textAppearance="?android:textAppearanceSmall"
+                tools:text="Address" />
+        </RelativeLayout>
+
+
+        <!--Data-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_tiny"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/primary_text_style.robotoThin"
+                android:text="@string/ble__lbl__data"
+                android:textAppearance="?android:textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/scan__tv__data_value"
+                style="@style/primary_text_style.robotoLight"
+                android:text="@string/ble__lbl__no_data"
+                android:textAppearance="?android:textAppearanceSmall" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/card_view"
+        android:layout_margin="@dimen/spacing_tiny"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/primary_text_style.robotoLight"
+            android:text="@string/ble__lbl__services" />
+        <!--Service and characteristics-->
+        <ExpandableListView
+            android:id="@+id/scan__list__gatt_services"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/spacing_small"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:animateLayoutChanges="true"
+            android:dividerHeight="@dimen/horizontal_divider_height"
+            android:groupIndicator="@android:color/transparent" />
+    </LinearLayout>
+</RelativeLayout>

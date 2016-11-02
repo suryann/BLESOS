@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.activity.ScanActivity">
+
+    <!--BLE settings-->
+    <item
+        android:id="@+id/menu_ble_setting"
+        android:orderInCategory="100"
+        android:title="@string/menu__lbl__ble_settings"
+        app:showAsAction="never" />
+</menu>

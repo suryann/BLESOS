@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">BLESOS</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Connect BLE</string>
     <string name="sms_sent">SMS_SENT</string>
     <string name="sms_delivered">SMS_DELIVERED</string>
     <string name="key">CA1CDEF82D745</string>
@@ -27,5 +27,64 @@
     <string name="maplink_sadd">http://maps.google.com/maps?saddr=</string>
     <string name="desti_add"><![CDATA[&daddr=]]></string>
     <string name="tel">tel:</string>
+
+    <!--Progress dialog-->
+    <string name="progress__lbl__connect_to_server">Connecting To Server...</string>
+    <string name="dialog__btn_ok">OK</string>
+
+    <!--Home screen-->
+    <string name="btn__lbl__connect">Connect</string>
+    <string name="btn__lbl__store">Store</string>
+
+    <!--Title-->
+    <string name="title__lbl__ble_devices">BLE Devices</string>
+
+    <!-- Menu items -->
+    <string name="menu__lbl__connect">Connect</string>
+    <string name="menu__lbl__disconnect">Disconnect</string>
+    <string name="menu__lbl__bond">Bond</string>
+    <string name="menu__lbl__scan">Scan</string>
+    <string name="menu__lbl__stop_scanning">Stop scanning</string>
+    <string name="menu__lbl__refresh">Refresh</string>
+    <string name="menu__lbl__ble_settings">BLE Settings</string>
+    <string name="menu__lbl__remove_bond">Remove Bond</string>
+    <string name="menu__lbl__create_bond">Create Bond</string>
+    <string name="menu__lbl__enable_all_services">Enable all services</string>
+    <string name="menu__lbl__retry">Retry</string>
+
+    <!--BLE status-->
+    <string name="ble__lbl__unknown_device">Unknown device</string>
+    <string name="ble__lbl__unknown_characteristic">Unknown characteristic</string>
+    <string name="ble__lbl__unknown_service">Unknown service</string>
+    <string name="ble__lbl__connected">Connected</string>
+    <string name="ble__lbl__disconnected">Disconnected</string>
+    <string name="ble__lbl__not_connected">Not Connected</string>
+    <string name="ble__btn__verify">Verify</string>
+    <string name="ble__lbl__data">Data</string>
+    <string name="ble__lbl__no_data">No data</string>
+    <string name="ble__lbl__services">Services</string>
+    <string name="ble__lbl__bonded">Bonded</string>
+    <string name="ble__lbl__paired">Paired</string>
+    <string name="ble__lbl__not_bonded">Not Bonded</string>
+    <string name="ble__lbl__unpaired">Unpaired</string>
+
+    <!--Alert-->
+    <string name="alert__lbl__yes">Yes</string>
+    <string name="alert__lbl__the_app_was_not_allowed_to_write_your_storage">The app was not allowed to write to your storage. Hence, it cannot function properly. Please consider granting it this permission</string>
+    <string name="alert__lbl__device_is_disconnected_from_gatt_server">The device (%1$s) is disconnected from GATT server. Please connect the device again.</string>
+    <string name="alert__lbl__device_is_connected_to_gatt_server"> The device (%1$s) is connected to the GATT server.</string>
+    <string name="alert__lbl__bluetooth_not_supported">Bluetooth not supported.</string>
+    <string name="alert__lbl__no_bonded_device_please_go_to_the_ble_settings_and_bonding_the_device">No paired device. Please go to the BLE settings and pair the device.</string>
+    <string name="alert__lbl__device_is_not_able_to_communicate_to_ble_device">The device is not able to communicate to the connected BLE device. Please go to the BLE settings and click on \'Enable all Services\' option from menu.</string>
+
+
+    <!--Dialog-->
+    <string name="dialog__lbl__are_you_sure_want_to_cancel_this_process">Are you sure want to cancel this process?</string>
+    <string name="dialog__lbl__are_you_sure_want_to_close_this_application">Are you sure want to close this application?</string>
+    <string name="dialog__btn__yes">YES</string>
+    <string name="dialog__btn__no">NO</string>
+    <string name="dialog__lbl__functionality_limited">Functionality limited</string>
+    <string name="dialog__lbl__location_access_not_granted">Since location access has not been granted, this app will not be able to discover beacons when in the background.</string>
+    <string name="title__lbl__scanner">Scanner</string>
 
 </resources>

@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -23,6 +23,84 @@
         <item name="android:drawablePadding">12dp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!-- Vertical divider style -->
+
+    <style name="vertical_divider">
+        <item name="android:layout_width">@dimen/vertical_divider_width</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/divider_color</item>
+    </style>
+
+    <!-- Horizontal  divider style -->
+    <style name="horizontal_divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/horizontal_divider_height</item>
+        <item name="android:background">@color/divider_color</item>
+    </style>
+
+    <!-- Primary text view style -->
+    <style name="primary_text_style" parent="@android:style/Widget.TextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">@dimen/spacing_tiny</item>
+        <item name="android:background">@android:color/transparent</item>
+        t<!--<item name="android:extColor">@color/Black</item>-->
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/roboto_thin</item>
+    </style>
+
+    <!--Roboto Thin-->
+    <style name="primary_text_style.robotoThin">
+        <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/roboto_thin</item>
+    </style>
+
+    <!--Roboto Light-->
+    <style name="primary_text_style.robotoLight">
+        <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/roboto_light</item>
+    </style>
+
+    <!--Roboto condensed-->
+    <style name="primary_text_style.robotoCondensed">
+        <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/roboto_condensed</item>
+    </style>
+
+    <!--Roboto Regular-->
+    <style name="primary_text_style.robotoRegular">
+        <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/roboto_regular</item>
+    </style>
+
+    <!--Button style-->
+    <style name="button_style" parent="@style/Widget.AppCompat.Button.Colored">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/btn_selector</item>
+        <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/roboto_light</item>
+        <item name="android:textColor">@color/White</item>
+        <item name="android:padding">@dimen/spacing_small</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+    </style>
+
+
+    <!--Edit text style-->
+    <style name="edit_text_style" parent="@style/Widget.AppCompat.EditText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">@dimen/spacing_small</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/roboto_light</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
+    </style>
+
+    <style name="circularProgress" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">@color/White</item>
+    </style>
+
+    <style name="button_color_style" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">@color/DarkBlue</item>
+        <item name="colorButtonNormal">@color/btn_color</item>
     </style>
 
 </resources>

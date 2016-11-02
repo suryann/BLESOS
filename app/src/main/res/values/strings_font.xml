@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--roboto regular-->
+    <string name="roboto_regular">sans-serif</string>
+    <!--roboto light-->
+    <string name="roboto_light">sans-serif-light</string>
+    <!--roboto condensed-->
+    <string name="roboto_condensed">sans-serif-condensed</string>
+    <!--roboto thin-->
+    <string name="roboto_thin">sans-serif-thin</string>
+
+</resources>

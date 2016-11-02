@@ -1,0 +1,33 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.activity.ScanActivity">
+
+    <!--loader-->
+    <item
+        android:id="@+id/menu_loader"
+        android:orderInCategory="1"
+        android:title=""
+        app:showAsAction="ifRoom" />
+
+    <!--scan-->
+    <item
+        android:id="@+id/menu_scan"
+        android:orderInCategory="2"
+        android:title="@string/menu__lbl__scan"
+        app:showAsAction="ifRoom|withText" />
+
+    /<!--Stop-->
+    <item
+        android:id="@+id/menu_stop"
+        android:orderInCategory="3"
+        android:title="@string/menu__lbl__stop_scanning"
+        app:showAsAction="ifRoom|withText" />
+
+    <!--refresh scan-->
+    <item
+        android:id="@+id/menu_refresh"
+        android:orderInCategory="4"
+        android:title="@string/menu__lbl__refresh"
+        app:showAsAction="never" />
+</menu>

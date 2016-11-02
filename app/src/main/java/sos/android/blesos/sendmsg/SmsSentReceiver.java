@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.telephony.SmsManager;
 import android.widget.Toast;
 
+import sos.android.blesos.util.Utility;
+
 /**
  * Created by soorianarayanan on 18/10/16.
  */
@@ -15,24 +17,19 @@ public class SmsSentReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent arg1) {
         switch (getResultCode()) {
             case Activity.RESULT_OK:
-                Toast.makeText(context, "SMS Sent", Toast.LENGTH_SHORT).show();
-
+                Utility.showToast("SMS Sent");
                 break;
             case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
-                Toast.makeText(context, "SMS generic failure", Toast.LENGTH_SHORT)
-                        .show();
-
+                Utility.showToast("SMS generic failure");
                 break;
             case SmsManager.RESULT_ERROR_NO_SERVICE:
-                Toast.makeText(context, "SMS no service", Toast.LENGTH_SHORT)
-                        .show();
-
+                Utility.showToast("SMS no service");
                 break;
             case SmsManager.RESULT_ERROR_NULL_PDU:
-                Toast.makeText(context, "SMS null PDU", Toast.LENGTH_SHORT).show();
+                Utility.showToast("SMS null PDU");
                 break;
             case SmsManager.RESULT_ERROR_RADIO_OFF:
-                Toast.makeText(context, "SMS radio off", Toast.LENGTH_SHORT).show();
+                Utility.showToast("SMS radio off");
                 break;
         }
     }

@@ -8,6 +8,7 @@ import sos.android.blesos.application.BaseApplication;
  */
 
 public interface Constant {
+    boolean DEBUG = false;
 
     public static final String SMS_SENT = BaseApplication.appContext.getString(R.string.sms_sent);
     public static final String SMS_DELIVERED = BaseApplication.appContext.getString(R.string.sms_delivered);
@@ -19,4 +20,8 @@ public interface Constant {
     String LATITUDE = "Latitude";
     String LONGITUDE = "Longitude";
     String PHONENUMBER = "phoneNumber";
+
+    //=====BUNDLE KEY========
+    String BUNDLE_KEY_BLE_ADDRESS = "bundle_key_ble_address";
+    String BUNDLE_KEY_BLE_STATUS = "bundle_key_ble_status";
 }

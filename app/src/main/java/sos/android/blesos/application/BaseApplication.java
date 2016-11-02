@@ -49,4 +49,7 @@ public class BaseApplication extends Application {
         MultiDex.install(this);
     }
 
+    public static Context getApplication() {
+        return appContext;
+    }
 }
