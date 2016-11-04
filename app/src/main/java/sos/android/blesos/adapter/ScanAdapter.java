@@ -158,6 +158,7 @@ public class ScanAdapter extends RecyclerView.Adapter<ScanAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 SharedPreferenceUtil.getInstance().setStringValue(SharedPreferenceUtil.MAC_ADD, dataModel.getAddress());
+                ScanReceiver.msgFlag = false;
                 ScanReceiver.SetAlarm(BaseApplication.appContext);
                 Utility.showToast("Address Stored");
             }
