@@ -142,6 +142,8 @@ public class ScanAdapter extends RecyclerView.Adapter<ScanAdapter.ViewHolder> {
             }
 
         }
+        //disable connect button always
+        holder.mConnectButton.setVisibility(View.GONE);
 
         //connect button click event
         holder.mConnectButton.setOnClickListener(new View.OnClickListener() {
