@@ -57,6 +57,8 @@ public class ScanReceiver extends BroadcastReceiver {
     private ScanCallback mScanCallback;
     private Handler mHandler;
     private static final long SCAN_PERIOD = 40000;
+    public static final String TAG = ScanReceiver.class.getName();
+    public static boolean msgFlag = true;
 
     /**
      * BLE scan callback below 21
@@ -69,8 +71,11 @@ public class ScanReceiver extends BroadcastReceiver {
                     if (device.getAddress().equals(SharedPreferenceUtil.getInstance().getStringValue(SharedPreferenceUtil.MAC_ADD, ""))) {
                         Location location = getLocation();
                         if (location != null) {
-                            sendSms(location);
-                            Utility.showToast("msg send from receiver");
+                            if (msgFlag) {
+                                msgFlag = false;
+                                sendSms(location);
+                                Utility.showToast("msg send from receiver");
+                            }
                         }
                     }
                 }
@@ -85,6 +90,14 @@ public class ScanReceiver extends BroadcastReceiver {
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             mScanCallback = new ScanCallback() {
+
+                Runnable runnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        msgFlag = true;
+                    }
+                };
+
                 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
                 @Override
                 public void onScanResult(int callbackType, ScanResult result) {
@@ -96,8 +109,13 @@ public class ScanReceiver extends BroadcastReceiver {
                     if (btDevice.getAddress().equals(SharedPreferenceUtil.getInstance().getStringValue(SharedPreferenceUtil.MAC_ADD, ""))) {
                         Location location = getLocation();
                         if (location != null) {
-                            sendSms(location);
-                            Utility.showToast("msg send from receiver");
+                            mHandler.postDelayed(runnable, 1000 * 40);
+                            if (msgFlag) {
+                                msgFlag = false;
+                                sendSms(location);
+                                Utility.showToast("msg send from receiver");
+                                Log.v(TAG, "msg send from receiver");
+                            }
                         }
                     }
                 }
@@ -151,7 +169,7 @@ public class ScanReceiver extends BroadcastReceiver {
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, ScanReceiver.class);
         PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, 0);
-        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 60000, pi);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000 * 60, pi);
     }
 
     public static void CancelAlarm(Context context) {
