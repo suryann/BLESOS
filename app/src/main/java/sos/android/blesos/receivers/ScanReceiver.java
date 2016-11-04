@@ -28,7 +28,6 @@ import android.os.Handler;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -57,7 +56,7 @@ public class ScanReceiver extends BroadcastReceiver {
     private Context context;
     private ScanCallback mScanCallback;
     private Handler mHandler;
-    private static final long SCAN_PERIOD = 5000;
+    private static final long SCAN_PERIOD = 40000;
 
     /**
      * BLE scan callback below 21

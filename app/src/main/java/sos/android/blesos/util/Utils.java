@@ -17,8 +17,10 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
+import android.widget.Toast;
 
 import java.util.Locale;
 
@@ -118,8 +120,14 @@ public class Utils {
                     PERMISSION_LOCATION);
         }
         location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        if (location == null)
+        if (location == null){
             location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            if(location == null){
+                    Intent myIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    BaseApplication.appContext.startActivity(myIntent);
+            }
+            Toast.makeText(BaseApplication.appContext, "Please enable you location through settings", Toast.LENGTH_SHORT).show();
+        }
         return location;
     }
 

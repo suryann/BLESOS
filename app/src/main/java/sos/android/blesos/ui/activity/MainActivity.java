@@ -15,6 +15,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
@@ -91,6 +92,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         setContentView(R.layout.activity_main);
 
         checkPermissionSMS();
+        getLocation();
 
         mainActivityShowLayout = (LinearLayout) findViewById(R.id.mainActivity_add_edit_layout);
 
@@ -126,8 +128,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getLocation();
-                sendSms();
+                if (location != null)
+                    sendSms();
+                else
+                    Toast.makeText(getBaseContext(), "Please enable you location through settings", Toast.LENGTH_SHORT).show();
                 Utility.showToast("User Location has been send through sms");
             }
         });
@@ -139,6 +143,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     protected void onStart() {
         super.onStart();
         showUser();
+        getLocation();
     }
 
     @Override
@@ -274,9 +279,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 location = Utils.getLocation();
             }
         }
-        Log.v("", "Latitude  :		" + location.getLatitude() + "\n");
-        Log.v("", "Langitude :		" + location.getLongitude() + "\n");
-
         return location;
     }
 
