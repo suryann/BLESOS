@@ -16,6 +16,7 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
@@ -92,7 +93,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         setContentView(R.layout.activity_main);
 
         checkPermissionSMS();
-        getLocation();
 
         mainActivityShowLayout = (LinearLayout) findViewById(R.id.mainActivity_add_edit_layout);
 
@@ -143,7 +143,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     protected void onStart() {
         super.onStart();
         showUser();
-        getLocation();
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            getLocation();
+        }
     }
 
     @Override
@@ -165,6 +167,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     protected void onDestroy() {
         unregisterReceiver(receiver);
         super.onDestroy();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        getLocation();
     }
 
     @Override
@@ -270,6 +278,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                     PERMISSION_CALL);
         }
 
+        if(best != null)
         mgr.requestLocationUpdates(best, 1500, 1, this);
         if (location == null) {
             location = mgr.getLastKnownLocation(LocationManager.GPS_PROVIDER);
