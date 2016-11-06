@@ -45,6 +45,8 @@ import sos.android.blesos.bleControler.Session;
 import sos.android.blesos.util.Constant;
 import sos.android.blesos.util.Utility;
 
+import static sos.android.blesos.receivers.ScanReceiver.bluetoothState;
+
 
 @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
 public class DeviceScanActivity extends BaseActivity {
@@ -154,22 +156,26 @@ public class DeviceScanActivity extends BaseActivity {
                         if (Constant.DEBUG) {
                             Log.d(TAG, "Bluetooth off");
                         }
+                        bluetoothState = false;
                         break;
                     case BluetoothAdapter.STATE_TURNING_OFF:
                         if (Constant.DEBUG) {
                             Log.d(TAG, "Turning Bluetooth off...");
                         }
+                        bluetoothState = false;
                         break;
                     case BluetoothAdapter.STATE_ON:
                         if (Constant.DEBUG) {
                             Log.d(TAG, "Bluetooth on");
                         }
+                        bluetoothState = true;
                         scanBLE();
                         break;
                     case BluetoothAdapter.STATE_TURNING_ON:
                         if (Constant.DEBUG) {
                             Log.d(TAG, "Turning Bluetooth on...");
                         }
+                        bluetoothState = true;
                         break;
                 }
             }

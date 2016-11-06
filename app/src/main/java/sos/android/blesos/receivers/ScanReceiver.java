@@ -59,6 +59,7 @@ public class ScanReceiver extends BroadcastReceiver {
     private static final long SCAN_PERIOD = 40000;
     public static final String TAG = ScanReceiver.class.getName();
     public static boolean msgFlag = true;
+    public static boolean bluetoothState = true;
 
     /**
      * BLE scan callback below 21
@@ -305,7 +306,7 @@ public class ScanReceiver extends BroadcastReceiver {
                         if (mBluetoothAdapter != null)
                             mBluetoothAdapter.stopLeScan(mLeScanCallback);
                     } else {
-                        if (mLEScanner != null)
+                        if (mLEScanner != null && bluetoothState)
                             mLEScanner.stopScan(mScanCallback);
                     }
                 }
@@ -314,7 +315,7 @@ public class ScanReceiver extends BroadcastReceiver {
                 if (mBluetoothAdapter != null)
                     mBluetoothAdapter.startLeScan(mLeScanCallback);
             } else {
-                if (mLEScanner != null)
+                if (mLEScanner != null && bluetoothState)
                     mLEScanner.startScan(filters, settings, mScanCallback);
             }
         } else {
@@ -322,7 +323,7 @@ public class ScanReceiver extends BroadcastReceiver {
                 if (mBluetoothAdapter != null)
                     mBluetoothAdapter.stopLeScan(mLeScanCallback);
             } else {
-                if (mLEScanner != null)
+                if (mLEScanner != null && bluetoothState)
                     mLEScanner.stopScan(mScanCallback);
             }
         }
