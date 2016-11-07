@@ -119,6 +119,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                     NoSqlDao.getInstance().insertValues(Constant.user, users);
                     showUser();
                 }
+                nameAdd.setText("");
+                mobileNumber.setText("");
             }
         });
 
@@ -278,14 +280,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                     PERMISSION_CALL);
         }
 
-        if(best != null)
-        mgr.requestLocationUpdates(best, 1500, 1, this);
+        if (best != null)
+            mgr.requestLocationUpdates(best, 1500, 1, this);
         if (location == null) {
             location = mgr.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             if (location == null)
                 location = mgr.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
             if (location == null) {
-                location = Utils.getLocation();
+                location = Utils.getLocation(getBaseContext());
             }
         }
         return location;
@@ -353,7 +355,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 Address firstadd = addresses.get(j);
                 for (int i = 0; i <= firstadd.getMaxAddressLineIndex(); ) {
                     address = address + firstadd.getAddressLine(i).toString();
-//    			   log("       "+firstadd.getAddressLine(i)+"\n");
                     i++;
                 }
                 j++;
@@ -362,6 +363,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        if (address.contains("null"))
+            address.replace("null", "");
         return address;
     }
 }

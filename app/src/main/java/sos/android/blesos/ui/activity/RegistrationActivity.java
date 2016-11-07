@@ -137,7 +137,7 @@ public class RegistrationActivity extends AppCompatActivity {
         } else if (!storedUserName.equals(userName)) {
             showAlertDialog("Register Mobile Number is mismatched");
         } else if (!storedUserPassword.equals(passwordTxt)) {
-            showAlertDialog("Please check your Password is mismatched");
+            showAlertDialog("Wrong Password. Try again");
         } else {
             startActivity(new Intent(RegistrationActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             finish();
@@ -148,7 +148,7 @@ public class RegistrationActivity extends AppCompatActivity {
         ArrayList<String> receipientList = new ArrayList<>();
         receipientList.add(storedUserName);
         new SendMessage(receipientList, "Your Password for SoS is " + storedUserPassword);
-        Utility.showToast("your Password has been sent through sms");
+        Utility.showToast("Your password has been sent through sms");
     }
 
     private void showAlertDialog(final String textToShow) {

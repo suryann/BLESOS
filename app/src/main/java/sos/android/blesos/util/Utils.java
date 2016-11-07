@@ -1,6 +1,7 @@
 package sos.android.blesos.util;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -88,20 +89,7 @@ public class Utils {
         BaseApplication.appContext.startActivity(intent);
     }
 
-    public static void showRoute(String Latitude, String Longitude) {
-        Location location = getLocation();
-        double myLatitude = location.getLatitude();
-        double myLongitude = location.getLongitude();
-        if (Latitude != null && Longitude != null) {
-            String uri = String.format(Locale.ENGLISH, "http://maps.google.com/maps?saddr=" + myLatitude + "," + myLongitude + "&daddr=" + Latitude + "," + Longitude + "");
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
-            BaseApplication.appContext.startActivity(intent);
-        }
-    }
-
-    public static Location getLocation() {
+    public static Location getLocation(Context context) {
         Location location;
         LocationManager locationManager = (LocationManager) BaseApplication.appContext.getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(BaseApplication.appContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(BaseApplication.appContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -114,7 +102,7 @@ public class Utils {
             // for ActivityCompat#requestPermissions for more details.
 //            return TODO;
 
-            ActivityCompat.requestPermissions(BaseActivity.activity, new String[]{
+            ActivityCompat.requestPermissions((Activity) context, new String[]{
                             Manifest.permission.ACCESS_FINE_LOCATION,
                             Manifest.permission.ACCESS_COARSE_LOCATION},
                     PERMISSION_LOCATION);

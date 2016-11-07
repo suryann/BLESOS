@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -124,16 +125,26 @@ public class CallBackActivity extends AppCompatActivity implements LocationListe
 
     }
 
+    private void route() {
+        double myLatitude = location.getLatitude();
+        double myLongitude = location.getLongitude();
+        String uri = String.format(Locale.ENGLISH, getString(R.string.maplink_sadd) + myLatitude + "," + myLongitude + getString(R.string.desti_add) + latitude + "," + longitude + "");
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+        intent.setClassName(getString(R.string.google_class_name), getString(R.string.google_class_nametwo));
+        startActivity(intent);
+    }
+
     private void showRoute() {
         if (location == null)
-            location = getLocation();
-        if (latitude != null && longitude != null) {
-            double myLatitude = location.getLatitude();
-            double myLongitude = location.getLongitude();
-            String uri = String.format(Locale.ENGLISH, getString(R.string.maplink_sadd) + myLatitude + "," + myLongitude + getString(R.string.desti_add) + latitude + "," + longitude + "");
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-            intent.setClassName(getString(R.string.google_class_name), getString(R.string.google_class_nametwo));
-            startActivity(intent);
+            location = getLocation(getBaseContext());
+        else if (latitude != null && longitude != null) {
+            route();
         }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        route();
     }
 }

@@ -45,6 +45,7 @@ import sos.android.blesos.bleControler.Session;
 import sos.android.blesos.util.Constant;
 import sos.android.blesos.util.Utility;
 
+import static sos.android.blesos.receivers.ScanReceiver.SetAlarm;
 import static sos.android.blesos.receivers.ScanReceiver.bluetoothState;
 
 
@@ -169,13 +170,14 @@ public class DeviceScanActivity extends BaseActivity {
                             Log.d(TAG, "Bluetooth on");
                         }
                         bluetoothState = true;
-                        scanBLE();
+                        SetAlarm(getBaseContext());
                         break;
                     case BluetoothAdapter.STATE_TURNING_ON:
                         if (Constant.DEBUG) {
                             Log.d(TAG, "Turning Bluetooth on...");
                         }
                         bluetoothState = true;
+                        SetAlarm(getBaseContext());
                         break;
                 }
             }

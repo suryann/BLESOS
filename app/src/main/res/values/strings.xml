@@ -8,10 +8,10 @@
     <string name="screenTitle_signin">SOS Signin</string>
     <string name="activityRegistration_editTextName_hint">Mobile Number</string>
     <string name="activityRegistration_editTextpassword_hint">password</string>
-    <string name="activityRegistration_editTextConformPassword_hint">Conform password</string>
+    <string name="activityRegistration_editTextConformPassword_hint">Confirm password</string>
     <string name="activityRegistration_buttonRegister">Register</string>
     <string name="activityRegistration_buttonSignin">Signin</string>
-    <string name="activityRegistration_forget_password">forget password</string>
+    <string name="activityRegistration_forget_password">forgot password</string>
     <string name="activitySignin_editTextName_hint">Mobile number</string>
     <string name="activitySignin_editTextPassword_hint">password</string>
     <string name="activitySignin_buttonSignin">Signin</string>

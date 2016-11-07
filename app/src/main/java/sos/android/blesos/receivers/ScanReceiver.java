@@ -229,7 +229,7 @@ public class ScanReceiver extends BroadcastReceiver {
             if (location[0] == null)
                 location[0] = mgr.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
             if (location[0] == null) {
-                location[0] = Utils.getLocation();
+                location[0] = Utils.getLocation(context);
             }
         }
         Log.v("", "Latitude  :		" + location[0].getLatitude() + "\n");
@@ -306,7 +306,7 @@ public class ScanReceiver extends BroadcastReceiver {
                         if (mBluetoothAdapter != null)
                             mBluetoothAdapter.stopLeScan(mLeScanCallback);
                     } else {
-                        if (mLEScanner != null && bluetoothState)
+                        if (mLEScanner != null && mBluetoothAdapter.isEnabled() && mBluetoothAdapter.getState() == BluetoothAdapter.STATE_ON && bluetoothState)
                             mLEScanner.stopScan(mScanCallback);
                     }
                 }
@@ -315,7 +315,7 @@ public class ScanReceiver extends BroadcastReceiver {
                 if (mBluetoothAdapter != null)
                     mBluetoothAdapter.startLeScan(mLeScanCallback);
             } else {
-                if (mLEScanner != null && bluetoothState)
+                if (mLEScanner != null && mBluetoothAdapter.isEnabled() && mBluetoothAdapter.getState() == BluetoothAdapter.STATE_ON && bluetoothState)
                     mLEScanner.startScan(filters, settings, mScanCallback);
             }
         } else {
@@ -323,7 +323,7 @@ public class ScanReceiver extends BroadcastReceiver {
                 if (mBluetoothAdapter != null)
                     mBluetoothAdapter.stopLeScan(mLeScanCallback);
             } else {
-                if (mLEScanner != null && bluetoothState)
+                if (mLEScanner != null && mBluetoothAdapter.isEnabled() && mBluetoothAdapter.getState() == BluetoothAdapter.STATE_ON && bluetoothState)
                     mLEScanner.stopScan(mScanCallback);
             }
         }

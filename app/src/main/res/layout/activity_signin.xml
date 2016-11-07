@@ -44,7 +44,7 @@
             android:drawableLeft="@drawable/profile_username_icon"
             android:drawableStart="@drawable/profile_username_icon"
             android:hint="@string/activitySignin_editTextName_hint"
-            android:inputType="textPersonName" />
+            android:inputType="text|number" />
 
         <EditText
             android:id="@+id/activitySignin_editTextPassword"
