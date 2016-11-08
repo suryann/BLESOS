@@ -89,7 +89,7 @@ public class Utils {
         BaseApplication.appContext.startActivity(intent);
     }
 
-    public static Location getLocation(Context context) {
+    public static Location getLocation(Activity activity) {
         Location location;
         LocationManager locationManager = (LocationManager) BaseApplication.appContext.getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(BaseApplication.appContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(BaseApplication.appContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -102,21 +102,23 @@ public class Utils {
             // for ActivityCompat#requestPermissions for more details.
 //            return TODO;
 
-            ActivityCompat.requestPermissions((Activity) context, new String[]{
+            ActivityCompat.requestPermissions(activity, new String[]{
                             Manifest.permission.ACCESS_FINE_LOCATION,
                             Manifest.permission.ACCESS_COARSE_LOCATION},
                     PERMISSION_LOCATION);
-        }
-        location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        if (location == null){
-            location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-            if(location == null){
+        } else {
+            location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            if (location == null){
+                location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                if(location == null){
                     Intent myIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     BaseApplication.appContext.startActivity(myIntent);
+                }
+                Toast.makeText(BaseApplication.appContext, "Please enable you location through settings", Toast.LENGTH_SHORT).show();
             }
-            Toast.makeText(BaseApplication.appContext, "Please enable you location through settings", Toast.LENGTH_SHORT).show();
+            return location;
         }
-        return location;
+        return null;
     }
 
     public static void playSirenSound() {

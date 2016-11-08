@@ -229,7 +229,7 @@ public class ScanReceiver extends BroadcastReceiver {
             if (location[0] == null)
                 location[0] = mgr.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
             if (location[0] == null) {
-                location[0] = Utils.getLocation(context);
+                location[0] = Utils.getLocation(BaseActivity.activity);
             }
         }
         Log.v("", "Latitude  :		" + location[0].getLatitude() + "\n");

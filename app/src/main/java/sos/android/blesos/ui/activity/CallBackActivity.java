@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -26,6 +27,7 @@ import static sos.android.blesos.util.Utils.getLocation;
 public class CallBackActivity extends AppCompatActivity implements LocationListener {
 
     private static final int PERMISSION_CALL = 10;
+    private static final String TAG = CallBackActivity.class.getName();
     private Intent receiveIntent;
     private String latitude;
     private String longitude;
@@ -59,7 +61,7 @@ public class CallBackActivity extends AppCompatActivity implements LocationListe
             if (location == null)
                 location = mgr.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
             if (location == null) {
-                location = Utils.getLocation(getBaseContext());
+                location = Utils.getLocation(this);
             }
         }
 
@@ -151,6 +153,7 @@ public class CallBackActivity extends AppCompatActivity implements LocationListe
     }
 
     private void route() {
+        Log.v(TAG, "show route ");
         double myLatitude = location.getLatitude();
         double myLongitude = location.getLongitude();
         String uri = String.format(Locale.ENGLISH, getString(R.string.maplink_sadd) + myLatitude + "," + myLongitude + getString(R.string.desti_add) + latitude + "," + longitude + "");
@@ -160,15 +163,17 @@ public class CallBackActivity extends AppCompatActivity implements LocationListe
     }
 
     private void showRoute() {
-        if (location == null)
-            location = getLocation(getBaseContext());
-        else
+        if (location == null) {
+            location = getLocation(this);
+            Log.v(TAG, "location is null");
+        } else
             route();
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        Log.v(TAG, "onRequestPermissionsResult ");
         route();
     }
 }
