@@ -18,7 +18,6 @@ import sos.android.blesos.R;
 import sos.android.blesos.sendmsg.SendMessage;
 import sos.android.blesos.util.SharedPreferenceUtil;
 import sos.android.blesos.util.Utility;
-import sos.android.blesos.util.Utils;
 
 public class RegistrationActivity extends AppCompatActivity {
 
@@ -115,7 +114,8 @@ public class RegistrationActivity extends AppCompatActivity {
             startActivity(new Intent(RegistrationActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
             finish();
         } else {
-            Utils.showAlertDialog(getBaseContext(), "One of the field is empty are the fields are mismatched");
+            Toast.makeText(getBaseContext(), "One of the field is empty are the fields are mismatched", Toast.LENGTH_LONG).show();
+//            Utils.showAlertDialog(BaseApplication.appContext, "One of the field is empty are the fields are mismatched");
         }
     }
 

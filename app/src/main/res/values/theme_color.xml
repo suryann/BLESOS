@@ -18,5 +18,5 @@
     <!--Button color-->
     <color name="btn_color">@color/colorAccent</color>
 
-    <color name="nissan_logo">#B2BECB</color>
+    <color name="blesos_logo">#B2BECB</color>
 </resources>

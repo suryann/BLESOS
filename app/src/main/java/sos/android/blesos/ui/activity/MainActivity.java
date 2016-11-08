@@ -145,9 +145,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     protected void onStart() {
         super.onStart();
         showUser();
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            getLocation();
-        }
+//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        getLocation();
+//        }
     }
 
     @Override
@@ -174,7 +174,26 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        getLocation();
+        mgr = (LocationManager) getSystemService(LOCATION_SERVICE);
+
+        if (location == null) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
+            }
+            location = mgr.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            if (location == null)
+                location = mgr.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            if (location == null) {
+                location = Utils.getLocation(getBaseContext());
+            }
+        }
     }
 
     @Override
@@ -363,8 +382,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        if (address.contains("null"))
-            address.replace("null", "");
+//        if (address.contains("null"))
+//            address.replace("null", "");
         return address;
     }
 }

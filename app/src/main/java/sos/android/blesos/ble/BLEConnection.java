@@ -39,17 +39,17 @@ import sos.android.blesos.util.Utility;
 public class BLEConnection {
     //Broadcast action
     public final static String ACTION_GATT_CONNECTED =
-            "com.kemsys.nissan.ble.ACTION_GATT_CONNECTED";
+            "sos.android.blesos.ble.ACTION_GATT_CONNECTED";
     public final static String ACTION_GATT_DISCONNECTED =
-            "com.kemsys.nissan.ble.ACTION_GATT_DISCONNECTED";
+            "sos.android.blesos.ble.ACTION_GATT_DISCONNECTED";
     public final static String ACTION_GATT_SERVICES_DISCOVERED =
-            "com.kemsys.nissan.ble.ACTION_GATT_SERVICES_DISCOVERED";
+            "sos.android.blesos.ble.ACTION_GATT_SERVICES_DISCOVERED";
     public final static String ACTION_DATA_AVAILABLE =
-            "com.kemsys.nissan.ble.ACTION_DATA_AVAILABLE";
+            "sos.android.blesos.ble.ACTION_DATA_AVAILABLE";
     public final static String EXTRA_DATA =
-            "com.kemsys.nissan.ble.EXTRA_DATA";
+            "sos.android.blesos.ble.EXTRA_DATA";
     public final static String EXTRA_BYTE_DATA =
-            "com.kemsys.nissan.ble.EXTRA_BYTE_DATA";
+            "sos.android.blesos.ble.EXTRA_BYTE_DATA";
 
     //filter UUID
     public final static UUID UUID_SERIAL_DATA_TRANSFER =

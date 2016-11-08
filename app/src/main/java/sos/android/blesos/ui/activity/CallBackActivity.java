@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -18,6 +19,7 @@ import java.util.Locale;
 
 import sos.android.blesos.R;
 import sos.android.blesos.util.Constant;
+import sos.android.blesos.util.Utils;
 
 import static sos.android.blesos.util.Utils.getLocation;
 
@@ -32,12 +34,35 @@ public class CallBackActivity extends AppCompatActivity implements LocationListe
     private TextView phoneNumberTxt;
     private Button callButton;
     private Location location;
+    private LocationManager mgr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_call_back);
         receiveIntent = getIntent();
+
+        mgr = (LocationManager) getSystemService(LOCATION_SERVICE);
+
+        if (location == null) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
+            }
+            location = mgr.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            if (location == null)
+                location = mgr.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            if (location == null) {
+                location = Utils.getLocation(getBaseContext());
+            }
+        }
+
         latitude = receiveIntent.getStringExtra(Constant.LATITUDE);
         longitude = receiveIntent.getStringExtra(Constant.LONGITUDE);
         phoneNumber = receiveIntent.getStringExtra(Constant.PHONENUMBER);
@@ -137,9 +162,8 @@ public class CallBackActivity extends AppCompatActivity implements LocationListe
     private void showRoute() {
         if (location == null)
             location = getLocation(getBaseContext());
-        else if (latitude != null && longitude != null) {
+        else
             route();
-        }
     }
 
     @Override
