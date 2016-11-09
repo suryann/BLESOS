@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">BLESOS</string>
     <string name="action_settings">Connect BLE</string>
+    <string name="action_store_key">Store Key</string>
     <string name="sms_sent">SMS_SENT</string>
     <string name="sms_delivered">SMS_DELIVERED</string>
     <string name="key">CA1CDEF82D745</string>

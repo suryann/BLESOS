@@ -211,7 +211,7 @@ public class DeviceScanActivity extends BaseActivity {
         //Get bluetooth mScanAdapter
         BluetoothManager bluetoothManager =
                 (BluetoothManager) getSystemService(BLUETOOTH_SERVICE);
-        mBluetoothAdapter = bluetoothManager.getAdapter();
+        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
         initializeView();
 

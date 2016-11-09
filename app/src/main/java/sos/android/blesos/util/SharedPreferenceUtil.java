@@ -15,9 +15,12 @@ public class SharedPreferenceUtil {
     private static final String TAG = SharedPreferenceUtil.class.getSimpleName();
 
     public static String USER_NAME = "user_name";
+
     public static String USER_PASSWORD = "user_password";
 
     public static String MAC_ADD = "mac_add";
+
+    public static String CUSTOM_SMS_KEY = "CUSTOM_SMS_KEY";
 
     private static SharedPreferenceUtil instance;
 
@@ -85,4 +88,13 @@ public class SharedPreferenceUtil {
         mPrefsEditor.commit();
         Log.i(TAG, "setIntValue >>>>>>>>>>key:" + key + " status:" + value);
     }
+
+    public static String getCustomSmsKey() {
+        return CUSTOM_SMS_KEY;
+    }
+
+    public static void setCustomSmsKey(String customSmsKey) {
+        CUSTOM_SMS_KEY = customSmsKey;
+    }
+
 }

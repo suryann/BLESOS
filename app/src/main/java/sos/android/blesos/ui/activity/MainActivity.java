@@ -2,26 +2,27 @@ package sos.android.blesos.ui.activity;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.location.Address;
-import android.location.Criteria;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.telephony.SmsManager;
-import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,6 +31,11 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.appindexing.Thing;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -43,6 +49,7 @@ import sos.android.blesos.db.model.User;
 import sos.android.blesos.receivers.ScanReceiver;
 import sos.android.blesos.sendmsg.SendMessage;
 import sos.android.blesos.util.Constant;
+import sos.android.blesos.util.SharedPreferenceUtil;
 import sos.android.blesos.util.Utility;
 import sos.android.blesos.util.Utils;
 
@@ -86,6 +93,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             }
         }
     };
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,15 +151,24 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         });
 
         users = (ArrayList<User>) NoSqlDao.getInstance().findSerializeData(Constant.user);
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     @Override
     protected void onStart() {
-        super.onStart();
+        super.onStart();// ATTENTION: This was auto-generated to implement the App Indexing API.
+// See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
         showUser();
 //        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
         Utils.getLocation(this);
 //        }
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        AppIndex.AppIndexApi.start(client, getIndexApiAction());
     }
 
     @Override
@@ -162,7 +183,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     @Override
     protected void onStop() {
-        super.onStop();
+        super.onStop();// ATTENTION: This was auto-generated to implement the App Indexing API.
+// See https://g.co/AppIndexing/AndroidStudio for more information.
+        AppIndex.AppIndexApi.end(client, getIndexApiAction());
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.disconnect();
     }
 
     @Override
@@ -200,6 +226,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
         return true;
     }
 
@@ -210,13 +237,61 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         // as you specify a parent BaseActivity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            ActivityController.INSTANCE.launchActivity(this, DeviceScanActivity.class);
-            return true;
+        switch (id) {
+            case R.id.action_settings:
+                ActivityController.INSTANCE.launchActivity(this, DeviceScanActivity.class);
+                return true;
+            case R.id.action_store_key:
+                showAlertDialogEdit();
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showAlertDialogEdit() {
+
+        LayoutInflater li = LayoutInflater.from(getBaseContext());
+        View dialogView = li.inflate(R.layout.custom_dialog, null);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+        // set title
+        alertDialogBuilder.setTitle("Custom SMS Key");
+        // set custom dialog icon
+        alertDialogBuilder.setIcon(R.mipmap.ic_launcher);
+        // set custom_dialog.xml to alertdialog builder
+        alertDialogBuilder.setView(dialogView);
+        final EditText userInput = (EditText) dialogView
+                .findViewById(R.id.et_input);
+        // set dialog message
+        alertDialogBuilder
+                .setCancelable(false)
+                .setPositiveButton("OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int id) {
+                                // get user input and set it to etOutput
+                                // edit text
+                                String smsKey = userInput.getText().toString();
+                                if (!smsKey.isEmpty()) {
+                                    SharedPreferenceUtil.getInstance().setStringValue(SharedPreferenceUtil.CUSTOM_SMS_KEY, userInput.getText().toString());
+                                } else {
+                                    Toast.makeText(getBaseContext(), "Please enter valid Text Input", Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        })
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int id) {
+                                dialog.cancel();
+                            }
+                        });
+        // create alert dialog
+//        AlertDialog alertDialog = alertDialogBuilder.create();
+//        // show it
+//        alertDialog.show();
+        alertDialogBuilder.show();
+
     }
 
     @Override
@@ -303,27 +378,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private void sendSms() {
         String message;
         ArrayList<String> receipientList = new ArrayList<>();
-        message = "key : " + getResources().getString(R.string.key)
+        String key = SharedPreferenceUtil.getInstance().getStringValue(SharedPreferenceUtil.CUSTOM_SMS_KEY, "");
+        if (key.isEmpty())
+            key = getResources().getString(R.string.key);
+
+        message = "key : " + key
                 + " ; GoogleLink for Map : " + Constant.GOOGLELINK + location.getLatitude() + "," + location.getLongitude()
                 + " ; Latitude : " + (int) (location.getLatitude() * 1E6)
                 + " ; Longitude : " + (int) (location.getLongitude() * 1E6)
                 + " ; Address : " + getAddress(this, location);
-
-        if (users != null)
-            for (User user : users) {
-                receipientList.add(user.getMobileNumber());
-            }
-        new SendMessage(receipientList, message);
-    }
-
-    public static void sendSms(Context context, Location location) {
-        String message;
-        ArrayList<String> receipientList = new ArrayList<>();
-        message = "key : " + context.getResources().getString(R.string.key)
-                + " ; GoogleLink for Map : " + Constant.GOOGLELINK + location.getLatitude() + "," + location.getLongitude()
-                + " ; Latitude : " + (int) (location.getLatitude() * 1E6)
-                + " ; Longitude : " + (int) (location.getLongitude() * 1E6)
-                + " ; Address : " + getAddress(context, location);
 
         if (users != null)
             for (User user : users) {
@@ -349,8 +412,22 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-//        if (address.contains("null"))
-//            address.replace("null", "");
         return address;
+    }
+
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    public Action getIndexApiAction() {
+        Thing object = new Thing.Builder()
+                .setName("Main Page") // TODO: Define a title for the content shown.
+                // TODO: Make sure this auto-generated URL is correct.
+                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
+                .build();
+        return new Action.Builder(Action.TYPE_VIEW)
+                .setObject(object)
+                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
+                .build();
     }
 }
