@@ -130,6 +130,7 @@ public class CallBackActivity extends AppCompatActivity implements LocationListe
             return;
         }
         startActivity(callIntent);
+        Log.v(TAG, "Callback in progress ");
     }
 
     @Override
@@ -160,6 +161,7 @@ public class CallBackActivity extends AppCompatActivity implements LocationListe
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
         intent.setClassName(getString(R.string.google_class_name), getString(R.string.google_class_nametwo));
         startActivity(intent);
+        Log.v(TAG, "Opening Google Maps");
     }
 
     private void showRoute() {

@@ -3,6 +3,7 @@ package sos.android.blesos.sendmsg;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.telephony.SmsManager;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -15,6 +16,7 @@ import sos.android.blesos.util.Constant;
 
 public class SendMessage {
 
+    private static final String TAG = SendMessage.class.getName();
     String message;
 
     public SendMessage(ArrayList<String> receipientList, String message) {
@@ -25,6 +27,7 @@ public class SendMessage {
                     @Override
                     public void run() {
                         sendSMS(msgReceiver);
+                        Log.v(TAG, " SMS sent to "+msgReceiver);
                     }
                 }).start();
             }

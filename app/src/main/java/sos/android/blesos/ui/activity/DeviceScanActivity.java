@@ -136,6 +136,7 @@ public class DeviceScanActivity extends BaseActivity {
                                 Log.i("onLeScan", device.toString());
                             }
                             mScanAdapter.addDevice(device);
+                            Log.v(TAG, " BLE signal received");
                         }
                     });
                 }
@@ -222,6 +223,7 @@ public class DeviceScanActivity extends BaseActivity {
                         bluetoothDevices) {
                     if (bluetoothDevice.getType() == BluetoothDevice.DEVICE_TYPE_LE) {
                         mScanAdapter.addDevice(bluetoothDevice);
+                        Log.v(TAG, " BLE signal received");
                     }
                 }
             }
@@ -232,6 +234,7 @@ public class DeviceScanActivity extends BaseActivity {
                 if (device.getType() == BluetoothDevice.DEVICE_TYPE_LE) {
                     Session.getInstance().setBLEConnectedDevices(device.getAddress());
                     mScanAdapter.addDevice(device);
+                    Log.v(TAG, " BLE signal received");
                 }
             }
         }
@@ -253,6 +256,7 @@ public class DeviceScanActivity extends BaseActivity {
                         @Override
                         public void run() {
                             mScanAdapter.addDevice(btDevice);
+                            Log.v(TAG, " BLE signal received");
                         }
                     });
                 }

@@ -6,11 +6,11 @@ import android.os.Bundle;
 import android.support.v4.content.WakefulBroadcastReceiver;
 import android.telephony.SmsMessage;
 import android.util.Log;
-import android.widget.Toast;
 
 import sos.android.blesos.R;
 import sos.android.blesos.ui.activity.CallBackActivity;
 import sos.android.blesos.util.Constant;
+import sos.android.blesos.util.SharedPreferenceUtil;
 import sos.android.blesos.util.Utility;
 import sos.android.blesos.util.Utils;
 
@@ -28,6 +28,7 @@ public class MessageReceiver extends WakefulBroadcastReceiver {
         // Retrieves a map of extended data from the intent.
         final Bundle bundle = intent.getExtras();
         try {
+            String key = SharedPreferenceUtil.getInstance().getStringValue(SharedPreferenceUtil.CUSTOM_SMS_KEY, "");
 
             if (bundle != null) {
 
@@ -40,7 +41,11 @@ public class MessageReceiver extends WakefulBroadcastReceiver {
                     phoneNumber = currentMessage.getDisplayOriginatingAddress();
                     String message = currentMessage.getDisplayMessageBody();
 
-                    if (message.contains(context.getResources().getString(R.string.key))) {
+                    if (key.isEmpty()) {
+                        key = context.getResources().getString(R.string.key);
+                    }
+                    if (message.contains(key)) {
+                        Log.v(TAG, "SMS received");
                         messages = message.split(";");
                         for (String msg : messages) {
                             if (msg.contains(" GoogleLink ")) {
@@ -68,6 +73,7 @@ public class MessageReceiver extends WakefulBroadcastReceiver {
                                 setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
 //                        Utils.showRoute(Latitude, Longitude);
                         Utils.playSirenSound();
+                        Log.v(TAG, "Starting Alarm");
                     }
 
                 } // end for loop
