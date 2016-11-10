@@ -29,7 +29,7 @@ import sos.android.blesos.util.Utility;
 
 
 /**
- * Created by soorianarayanan on 13/10/16.
+ * Created by Radso Technologies on 13/10/16.
  */
 
 @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)

@@ -25,7 +25,7 @@ import sos.android.blesos.application.BaseApplication;
 import sos.android.blesos.bleControler.Session;
 
 /**
- * Created by soorianarayanan on 3/31/2016.
+ * Created by Radso Technologies on 3/31/2016.
  */
 public class BLEUtil {
     private static final String TAG = BLEUtil.class.getSimpleName();

@@ -28,7 +28,7 @@
             android:layout_margin="5dp"
             android:gravity="center"
             android:textColor="@color/White"
-            android:text="Soorianarayanan" />
+            android:text="Radso Technologies" />
 
         <TextView
             android:id="@+id/view_detail_mobile_number"

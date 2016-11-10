@@ -5,7 +5,7 @@ import java.io.IOException;
 import sos.android.blesos.db.Serializer;
 
 /**
- * Created by soorianarayanan on 17/10/16.
+ * Created by Radso Technologies on 17/10/16.
  */
 public abstract class BaseDao {
 

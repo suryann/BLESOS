@@ -16,7 +16,7 @@ import sos.android.blesos.application.BaseApplication;
 /**
  * Utility class for android notification..
  *
- * @author soorianarayanan
+ * @author Radso Technologies
  */
 public class NotificationManagerUtil {
 

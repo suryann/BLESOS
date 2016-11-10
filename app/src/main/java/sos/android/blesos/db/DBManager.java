@@ -11,7 +11,7 @@ import sos.android.blesos.application.BaseApplication;
 import sos.android.blesos.db.dao.NoSqlDao;
 
 /**
- * Created by soorianarayanan on 17/10/16.
+ * Created by Radso Technologies on 17/10/16.
  */
 public class DBManager {
     private static final String DATABASE_FILENAME =

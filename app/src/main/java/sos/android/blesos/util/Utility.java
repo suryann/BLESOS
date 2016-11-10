@@ -27,7 +27,7 @@ import java.io.InputStream;
 import sos.android.blesos.application.BaseApplication;
 
 /**
- * Created by soorianarayanan on 3/24/2016.
+ * Created by Radso Technologies on 3/24/2016.
  */
 public class Utility {
 

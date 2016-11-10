@@ -5,7 +5,7 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 
 /**
- * Created by soorianarayanan on 2/17/2016.
+ * Created by Radso Technologies on 2/17/2016.
  */
 public class BaseFragment extends Fragment {
     protected Activity mActivity;

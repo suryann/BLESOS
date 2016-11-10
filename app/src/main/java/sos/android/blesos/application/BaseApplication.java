@@ -8,7 +8,7 @@ import sos.android.blesos.db.DBManager;
 import sos.android.blesos.util.SharedPreferenceUtil;
 
 /**
- * Created by soorianarayanan on 13/10/16.
+ * Created by Radso Technologies on 13/10/16.
  */
 
 public class BaseApplication extends Application {

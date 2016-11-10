@@ -30,7 +30,7 @@ import sos.android.blesos.application.BaseApplication;
 import sos.android.blesos.ui.activity.BaseActivity;
 
 /**
- * Created by soorianarayanan on 16/10/16.
+ * Created by Radso Technologies on 16/10/16.
  */
 
 public class Utils {

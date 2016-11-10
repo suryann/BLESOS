@@ -14,7 +14,7 @@ import sos.android.blesos.db.DBManager;
 import sos.android.blesos.db.Serializer;
 
 /**
- * Created by soorianarayanan on 17/10/16.
+ * Created by Radso Technologies on 17/10/16.
  */
 public class NoSqlDao extends BaseDao {
 

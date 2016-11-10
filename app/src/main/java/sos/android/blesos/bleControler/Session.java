@@ -6,7 +6,7 @@ import java.util.Set;
 /**
  * This singleton class is used to store/retrieve the data in/from the session.
  * <p>
- * Created by soorianarayanan on 2/8/2016.
+ * Created by Radso Technologies on 2/8/2016.
  */
 public class Session {
     private static Session session = null;

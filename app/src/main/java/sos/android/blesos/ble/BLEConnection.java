@@ -33,7 +33,7 @@ import sos.android.blesos.util.Constant;
 import sos.android.blesos.util.Utility;
 
 /**
- * Created by soorianarayanan on 3/31/2016.
+ * Created by Radso Technologies on 3/31/2016.
  */
 @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
 public class BLEConnection {

@@ -4,7 +4,7 @@ import sos.android.blesos.R;
 import sos.android.blesos.application.BaseApplication;
 
 /**
- * Created by soorianarayanan on 16/10/16.
+ * Created by Radso Technologies on 16/10/16.
  */
 
 public interface Constant {

@@ -10,7 +10,7 @@ import sos.android.blesos.application.BaseApplication;
 import sos.android.blesos.util.Constant;
 
 /**
- * Created by soorianarayanan on 16/10/16.
+ * Created by Radso Technologies on 16/10/16.
  */
 
 public class SendMessage {

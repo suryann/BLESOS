@@ -7,7 +7,7 @@ import android.content.SharedPreferences.Editor;
 import android.util.Log;
 
 /**
- * Created by soorianarayanan on 16/10/16.
+ * Created by Radso Technologies on 16/10/16.
  */
 
 public class SharedPreferenceUtil {

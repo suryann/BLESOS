@@ -7,7 +7,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 /**
- * Created by soorianarayanan on 17/10/16.
+ * Created by Radso Technologies on 17/10/16.
  */
 public class Serializer {
     /**

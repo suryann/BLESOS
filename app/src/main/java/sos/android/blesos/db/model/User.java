@@ -3,7 +3,7 @@ package sos.android.blesos.db.model;
 import java.io.Serializable;
 
 /**
- * Created by soorianarayanan on 17/10/16.
+ * Created by Radso Technologies on 17/10/16.
  */
 
 public class User implements Serializable{

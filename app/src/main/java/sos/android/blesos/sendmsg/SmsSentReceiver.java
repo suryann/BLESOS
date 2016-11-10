@@ -10,7 +10,7 @@ import android.widget.Toast;
 import sos.android.blesos.util.Utility;
 
 /**
- * Created by soorianarayanan on 18/10/16.
+ * Created by Radso Technologies on 18/10/16.
  */
 public class SmsSentReceiver extends BroadcastReceiver {
     @Override

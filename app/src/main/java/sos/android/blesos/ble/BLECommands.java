@@ -1,7 +1,7 @@
 package sos.android.blesos.ble;
 
 /**
- * Created by soorianarayanan on 3/31/2016.
+ * Created by Radso Technologies on 3/31/2016.
  */
 public interface BLECommands {
 
