@@ -28,7 +28,7 @@ public class MessageReceiver extends WakefulBroadcastReceiver {
         // Retrieves a map of extended data from the intent.
         final Bundle bundle = intent.getExtras();
         try {
-            String key = SharedPreferenceUtil.getInstance().getStringValue(SharedPreferenceUtil.CUSTOM_SMS_KEY, "");
+            String key;
 
             if (bundle != null) {
 
@@ -41,9 +41,7 @@ public class MessageReceiver extends WakefulBroadcastReceiver {
                     phoneNumber = currentMessage.getDisplayOriginatingAddress();
                     String message = currentMessage.getDisplayMessageBody();
 
-                    if (key.isEmpty()) {
-                        key = context.getResources().getString(R.string.key);
-                    }
+                    key = context.getResources().getString(R.string.key);
                     if (message.contains(key)) {
                         Log.v(TAG, "SMS received");
                         messages = message.split(";");

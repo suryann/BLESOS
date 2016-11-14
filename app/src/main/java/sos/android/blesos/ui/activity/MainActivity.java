@@ -379,10 +379,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         String message;
         ArrayList<String> receipientList = new ArrayList<>();
         String key = SharedPreferenceUtil.getInstance().getStringValue(SharedPreferenceUtil.CUSTOM_SMS_KEY, "");
-        if (key.isEmpty())
-            key = getResources().getString(R.string.key);
 
-        message = "key : " + key
+        if (key.isEmpty())
+            key = "key : ";
+        else
+            key = key + " : ";
+
+        message = key + getResources().getString(R.string.key)
                 + " ; GoogleLink for Map : " + Constant.GOOGLELINK + location.getLatitude() + "," + location.getLongitude()
                 + " ; Latitude : " + (int) (location.getLatitude() * 1E6)
                 + " ; Longitude : " + (int) (location.getLongitude() * 1E6)

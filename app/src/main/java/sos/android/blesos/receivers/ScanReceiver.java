@@ -243,7 +243,15 @@ public class ScanReceiver extends BroadcastReceiver {
         ArrayList<User> users = (ArrayList<User>) NoSqlDao.getInstance().findSerializeData(Constant.user);
 
         ArrayList<String> receipientList = new ArrayList<>();
-        message = "key : " + context.getResources().getString(R.string.key)
+
+        String key = SharedPreferenceUtil.getInstance().getStringValue(SharedPreferenceUtil.CUSTOM_SMS_KEY, "");
+
+        if (key.isEmpty())
+            key = "key : ";
+        else
+            key = key + " : ";
+
+        message = key + context.getResources().getString(R.string.key)
                 + " ; GoogleLink for Map : " + Constant.GOOGLELINK + location.getLatitude() + "," + location.getLongitude()
                 + " ; Latitude : " + (int) (location.getLatitude() * 1E6)
                 + " ; Longitude : " + (int) (location.getLongitude() * 1E6)
