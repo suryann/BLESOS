@@ -71,7 +71,16 @@ public class ScanReceiver extends BroadcastReceiver {
                                      byte[] scanRecord) {
                     if (device.getAddress().equals(SharedPreferenceUtil.getInstance().getStringValue(SharedPreferenceUtil.MAC_ADD, ""))) {
                         Location location = getLocation();
+
+                        Runnable runnable = new Runnable() {
+                            @Override
+                            public void run() {
+                                msgFlag = true;
+                            }
+                        };
+
                         if (location != null) {
+                            mHandler.postDelayed(runnable, 1000 * 40);
                             if (msgFlag) {
                                 msgFlag = false;
                                 sendSms(location);
@@ -146,6 +155,7 @@ public class ScanReceiver extends BroadcastReceiver {
         // TODO: This method is called when the BroadcastReceiver is receiving
         // an Intent broadcast.
         this.context = context;
+
 
         address = SharedPreferenceUtil.getInstance().getStringValue(SharedPreferenceUtil.MAC_ADD, null);
         if (address != null) {
