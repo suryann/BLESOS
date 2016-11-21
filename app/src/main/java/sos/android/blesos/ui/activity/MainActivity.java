@@ -64,7 +64,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private Button addDetails;
     private LinearLayout mainActivityShowLayout;
     private static final int REQUEST_CODE_PERMISSION = 2;
-    private static boolean check = false;
 
     private LocationManager mgr;
     private Location location = null;
@@ -156,6 +155,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+        Utils.getLocation(this);
     }
 
     @Override
@@ -164,12 +164,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 // See https://g.co/AppIndexing/AndroidStudio for more information.
         client.connect();
         showUser();
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-        if(!check)
-        Utils.getLocation(this);
-        } else {
-            check =true;
-        }
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         AppIndex.AppIndexApi.start(client, getIndexApiAction());
@@ -216,8 +210,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 // to handle the case where the user grants the permission. See the documentation
                 // for ActivityCompat#requestPermissions for more details.
                 return;
-            } else {
-                check =true;
             }
             location = mgr.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             if (location == null)
