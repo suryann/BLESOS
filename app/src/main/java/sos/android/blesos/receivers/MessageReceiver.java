@@ -10,7 +10,6 @@ import android.util.Log;
 import sos.android.blesos.R;
 import sos.android.blesos.ui.activity.CallBackActivity;
 import sos.android.blesos.util.Constant;
-import sos.android.blesos.util.SharedPreferenceUtil;
 import sos.android.blesos.util.Utility;
 import sos.android.blesos.util.Utils;
 
@@ -50,7 +49,6 @@ public class MessageReceiver extends WakefulBroadcastReceiver {
                                 googleLink = msg.split(":");
                                 String sendGoogleLink = googleLink[1] + googleLink[2];
                                 //TODO later based on the requirement
-//                                Utils.openMap(sendGoogleLink);
                                 Log.v(TAG, "googleLink  " + sendGoogleLink);
                                 Utility.showToast("googleLink : " + sendGoogleLink);
                                 Utils.createNotification(context.getString(R.string.app_name), message, sendGoogleLink);
@@ -69,7 +67,6 @@ public class MessageReceiver extends WakefulBroadcastReceiver {
                                 putExtra(Constant.LONGITUDE, Longitude).
                                 putExtra(Constant.PHONENUMBER, phoneNumber).
                                 setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-//                        Utils.showRoute(Latitude, Longitude);
                         Utils.playSirenSound();
                         Log.v(TAG, "Starting Alarm");
                     }

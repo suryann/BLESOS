@@ -23,9 +23,9 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.telephony.SmsManager;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -46,7 +46,6 @@ import sos.android.blesos.R;
 import sos.android.blesos.bleControler.ActivityController;
 import sos.android.blesos.db.dao.NoSqlDao;
 import sos.android.blesos.db.model.User;
-import sos.android.blesos.receivers.ScanReceiver;
 import sos.android.blesos.sendmsg.SendMessage;
 import sos.android.blesos.util.Constant;
 import sos.android.blesos.util.SharedPreferenceUtil;
@@ -383,11 +382,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         else
             key = key + " : ";
 
-        message = key + getResources().getString(R.string.key)
-                + " ; GoogleLink for Map : " + Constant.GOOGLELINK + location.getLatitude() + "," + location.getLongitude()
-                + " ; Latitude : " + (int) (location.getLatitude() * 1E6)
-                + " ; Longitude : " + (int) (location.getLongitude() * 1E6)
-                + " ; Address : " + getAddress(this, location);
+        if (location == null) {
+            message = key + getResources().getString(R.string.key)
+                    + "Need Help";
+        } else {
+            message = key + getResources().getString(R.string.key)
+                    + " ; GoogleLink for Map : " + Constant.GOOGLELINK + location.getLatitude() + "," + location.getLongitude()
+                    + " ; Latitude : " + (int) (location.getLatitude() * 1E6)
+                    + " ; Longitude : " + (int) (location.getLongitude() * 1E6)
+                    + " ; Address : " + getAddress(this, location);
+        }
 
         if (users != null)
             for (User user : users) {
