@@ -35,6 +35,7 @@ import java.util.List;
 import java.util.Locale;
 
 import sos.android.blesos.R;
+import sos.android.blesos.application.BaseApplication;
 import sos.android.blesos.ble.BLEConnection;
 import sos.android.blesos.db.dao.NoSqlDao;
 import sos.android.blesos.db.model.User;
@@ -79,13 +80,14 @@ public class ScanReceiver extends BroadcastReceiver {
                             }
                         };
 
-                        if (location != null) {
+                        //location is not mandatory
+//                        if (location != null) {
                             mHandler.postDelayed(runnable, 1000 * 40);
                             if (msgFlag) {
                                 msgFlag = false;
                                 sendSms(location);
                                 Utility.showToast("msg send from receiver");
-                            }
+//                            }
                         }
                     }
                 }
@@ -118,7 +120,8 @@ public class ScanReceiver extends BroadcastReceiver {
                     final BluetoothDevice btDevice = result.getDevice();
                     if (btDevice.getAddress().equals(SharedPreferenceUtil.getInstance().getStringValue(SharedPreferenceUtil.MAC_ADD, ""))) {
                         Location location = getLocation();
-                        if (location != null) {
+                        //location is not mandatory
+//                        if (location != null) {
                             mHandler.postDelayed(runnable, 1000 * 40);
                             if (msgFlag) {
                                 msgFlag = false;
@@ -126,7 +129,7 @@ public class ScanReceiver extends BroadcastReceiver {
                                 Utility.showToast("msg send from receiver");
                                 Log.v(TAG, "msg send from receiver");
                             }
-                        }
+//                        }
                     }
                 }
 
@@ -208,9 +211,6 @@ public class ScanReceiver extends BroadcastReceiver {
             //                                          int[] grantResults)
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
-            ActivityCompat.requestPermissions(BaseActivity.activity, new String[]{
-                            Manifest.permission.CALL_PHONE,},
-                    PERMISSION_CALL);
         }
 
         mgr.requestLocationUpdates(best, 1500, 1, new LocationListener() {
@@ -241,10 +241,9 @@ public class ScanReceiver extends BroadcastReceiver {
             if (location[0] == null) {
                 location[0] = Utils.getLocation(BaseActivity.activity);
             }
+            Log.v("", "Latitude  :		" + location[0].getLatitude() + "\n");
+            Log.v("", "Langitude :		" + location[0].getLongitude() + "\n");
         }
-        Log.v("", "Latitude  :		" + location[0].getLatitude() + "\n");
-        Log.v("", "Langitude :		" + location[0].getLongitude() + "\n");
-
         return location[0];
     }
 
@@ -261,12 +260,16 @@ public class ScanReceiver extends BroadcastReceiver {
         else
             key = key + " : ";
 
-        message = key + context.getResources().getString(R.string.key)
-                + " ; GoogleLink for Map : " + Constant.GOOGLELINK + location.getLatitude() + "," + location.getLongitude()
-                + " ; Latitude : " + (int) (location.getLatitude() * 1E6)
-                + " ; Longitude : " + (int) (location.getLongitude() * 1E6)
-                + " ; Address : " + getAddress(context, location);
-
+        if (location == null) {
+            message = key + BaseApplication.appContext.getResources().getString(R.string.key)
+                    + "Need Help";
+        } else {
+            message = key + context.getResources().getString(R.string.key)
+                    + " ; GoogleLink for Map : " + Constant.GOOGLELINK + location.getLatitude() + "," + location.getLongitude()
+                    + " ; Latitude : " + (int) (location.getLatitude() * 1E6)
+                    + " ; Longitude : " + (int) (location.getLongitude() * 1E6)
+                    + " ; Address : " + getAddress(context, location);
+        }
 
         if (users != null)
             for (User user : users) {
