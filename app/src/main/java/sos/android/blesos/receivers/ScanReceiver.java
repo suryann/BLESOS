@@ -162,14 +162,15 @@ public class ScanReceiver extends BroadcastReceiver {
 
         address = SharedPreferenceUtil.getInstance().getStringValue(SharedPreferenceUtil.MAC_ADD, null);
         if (address != null) {
-            if (bleConnection == null)
-                // After ble connection
+            if (bleConnection == null){
                 bleConnection = BLEConnection.getInstance();
-            if (bleConnection.isConnected(address)) {
-
-            } else {
-
             }
+                // After ble connection
+//            if (bleConnection.isConnected(address)) {
+//
+//            } else {
+//
+//            }
 
             scanLeDevice(true);
 
