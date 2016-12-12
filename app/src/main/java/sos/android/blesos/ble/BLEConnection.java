@@ -19,7 +19,6 @@ import android.os.Message;
 import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +27,6 @@ import java.util.UUID;
 
 import sos.android.blesos.application.BaseApplication;
 import sos.android.blesos.bleControler.Session;
-import sos.android.blesos.service.BLEService;
 import sos.android.blesos.util.Constant;
 import sos.android.blesos.util.Utility;
 
@@ -256,7 +254,7 @@ public class BLEConnection {
         Utility.sendBroadcast(intent);
 
         //stop ble connection service
-        BaseApplication.getApplication().stopService(new Intent(BaseApplication.getApplication(), BLEService.class));
+//        BaseApplication.getApplication().stopService(new Intent(BaseApplication.getApplication(), BLEService.class));
     }
 
     /**
