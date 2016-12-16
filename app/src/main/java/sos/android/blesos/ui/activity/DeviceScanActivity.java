@@ -33,7 +33,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,10 +41,10 @@ import java.util.Set;
 import sos.android.blesos.R;
 import sos.android.blesos.adapter.ScanAdapter;
 import sos.android.blesos.bleControler.Session;
+import sos.android.blesos.service.AlarmService;
 import sos.android.blesos.util.Constant;
 import sos.android.blesos.util.Utility;
 
-import static sos.android.blesos.receivers.ScanReceiver.SetAlarm;
 import static sos.android.blesos.receivers.ScanReceiver.bluetoothState;
 
 
@@ -171,14 +170,14 @@ public class DeviceScanActivity extends BaseActivity {
                             Log.d(TAG, "Bluetooth on");
                         }
                         bluetoothState = true;
-                        SetAlarm(getBaseContext());
+                        startService(new Intent(DeviceScanActivity.this, AlarmService.class));
                         break;
                     case BluetoothAdapter.STATE_TURNING_ON:
                         if (Constant.DEBUG) {
                             Log.d(TAG, "Turning Bluetooth on...");
                         }
                         bluetoothState = true;
-                        SetAlarm(getBaseContext());
+                        startService(new Intent(DeviceScanActivity.this, AlarmService.class));
                         break;
                 }
             }

@@ -7,6 +7,7 @@ package sos.android.blesos.adapter;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.bluetooth.BluetoothDevice;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -17,17 +18,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 import sos.android.blesos.R;
-import sos.android.blesos.application.BaseApplication;
 import sos.android.blesos.bleControler.ActivityController;
 import sos.android.blesos.bleControler.Session;
 import sos.android.blesos.receivers.ScanReceiver;
+import sos.android.blesos.service.AlarmService;
 import sos.android.blesos.ui.activity.DeviceControlActivity;
 import sos.android.blesos.util.SharedPreferenceUtil;
 import sos.android.blesos.util.Utility;
@@ -159,7 +159,7 @@ public class ScanAdapter extends RecyclerView.Adapter<ScanAdapter.ViewHolder> {
             public void onClick(View v) {
                 SharedPreferenceUtil.getInstance().setStringValue(SharedPreferenceUtil.MAC_ADD, dataModel.getAddress());
                 ScanReceiver.msgFlag = false;
-                ScanReceiver.SetAlarm(BaseApplication.appContext);
+                mContext.startService(new Intent(mContext, AlarmService.class));
                 Utility.showToast("Address Stored");
             }
         });

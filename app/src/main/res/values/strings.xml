@@ -88,4 +88,6 @@
     <string name="dialog__lbl__location_access_not_granted">Since location access has not been granted, this app will not be able to discover beacons when in the background.</string>
     <string name="title__lbl__scanner">Scanner</string>
 
+    <string name="notification_title">SOS Application</string>
+    <string name="notification_message">SOS Application will keep you safe and secure</string>
 </resources>

@@ -2,8 +2,6 @@ package sos.android.blesos.receivers;
 
 import android.Manifest;
 import android.annotation.TargetApi;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
@@ -177,22 +175,6 @@ public class ScanReceiver extends BroadcastReceiver {
         } else {
 
         }
-    }
-
-    public static void SetAlarm(Context context) {
-        Log.i("SetAlarm", " Alarm set");
-        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(context, ScanReceiver.class);
-        PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, 0);
-        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000 * 60, pi);
-    }
-
-    public static void CancelAlarm(Context context) {
-        Log.i("CancelAlarm", " Alarm Camceled");
-        Intent intent = new Intent(context, ScanReceiver.class);
-        PendingIntent sender = PendingIntent.getBroadcast(context, 0, intent, 0);
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.cancel(sender);
     }
 
     public Location getLocation() {
