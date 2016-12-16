@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.support.multidex.MultiDex;
 import android.util.Log;
 
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
 import sos.android.blesos.db.DBManager;
 import sos.android.blesos.receivers.ScanReceiver;
 import sos.android.blesos.util.SharedPreferenceUtil;
@@ -23,6 +25,7 @@ public class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Fabric.with(this, new Crashlytics());
         appContext = this;
 
         // Initialize Database

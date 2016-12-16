@@ -1,16 +1,17 @@
 package sos.android.blesos.ui.activity;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.crashlytics.android.Crashlytics;
 
 import java.util.ArrayList;
 
@@ -110,7 +111,7 @@ public class RegistrationActivity extends AppCompatActivity {
         if (registrationValidation()) {
             SharedPreferenceUtil.getInstance().setStringValue(SharedPreferenceUtil.USER_NAME, userName);
             SharedPreferenceUtil.getInstance().setStringValue(SharedPreferenceUtil.USER_PASSWORD, passwordTxt);
-
+            logUser();
             startActivity(new Intent(RegistrationActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
             finish();
         } else {
@@ -132,6 +133,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private void setSignin() {
         userName = userNumber.getText().toString();
         passwordTxt = password.getText().toString();
+
         if (userName.isEmpty() || passwordTxt.isEmpty()) {
             showAlertDialog("One of the field is empty");
         } else if (!storedUserName.equals(userName)) {
@@ -139,6 +141,7 @@ public class RegistrationActivity extends AppCompatActivity {
         } else if (!storedUserPassword.equals(passwordTxt)) {
             showAlertDialog("Wrong Password. Try again");
         } else {
+            logUser();
             startActivity(new Intent(RegistrationActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             finish();
         }
@@ -163,4 +166,11 @@ public class RegistrationActivity extends AppCompatActivity {
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
     }
+    private void logUser() {
+        // TODO: Use the current user's information
+        // You can call any combination of these three methods
+        Crashlytics.setUserIdentifier(SharedPreferenceUtil.getInstance().getStringValue(SharedPreferenceUtil.USER_NAME, userName));
+        Crashlytics.setUserName(SharedPreferenceUtil.getInstance().getStringValue(SharedPreferenceUtil.USER_NAME, userName));
+    }
+
 }
