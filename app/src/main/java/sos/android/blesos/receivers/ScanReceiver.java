@@ -84,7 +84,7 @@ public class ScanReceiver extends BroadcastReceiver {
                             if (msgFlag) {
                                 msgFlag = false;
                                 sendSms(location);
-                                Utility.showToast("msg send from receiver");
+                                Log.v(TAG, "msg send from receiver");
 //                            }
                         }
                     }
