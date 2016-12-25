@@ -23,6 +23,7 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.HandlerThread;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
@@ -80,11 +81,11 @@ public class ScanReceiver extends BroadcastReceiver {
 
                         //location is not mandatory
 //                        if (location != null) {
-                            mHandler.postDelayed(runnable, 1000 * 40);
-                            if (msgFlag) {
-                                msgFlag = false;
-                                sendSms(location);
-                                Log.v(TAG, "msg send from receiver");
+                        mHandler.postDelayed(runnable, 1000 * 40);
+                        if (msgFlag) {
+                            msgFlag = false;
+                            sendSms(location);
+                            Log.v(TAG, "msg send from receiver");
 //                            }
                         }
                     }
@@ -96,7 +97,9 @@ public class ScanReceiver extends BroadcastReceiver {
         /**
          * BLE scan callback above 21
          */
-        mHandler = new Handler();
+        HandlerThread thread = new HandlerThread("MyHandlerThread");
+        thread.start();
+        mHandler = new Handler(thread.getLooper());
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             mScanCallback = new ScanCallback() {
@@ -120,13 +123,13 @@ public class ScanReceiver extends BroadcastReceiver {
                         Location location = getLocation();
                         //location is not mandatory
 //                        if (location != null) {
-                            mHandler.postDelayed(runnable, 1000 * 40);
-                            if (msgFlag) {
-                                msgFlag = false;
-                                sendSms(location);
-                                Utility.showToast("msg send from receiver");
-                                Log.v(TAG, "msg send from receiver");
-                            }
+                        mHandler.postDelayed(runnable, 1000 * 40);
+                        if (msgFlag) {
+                            msgFlag = false;
+                            sendSms(location);
+                            Utility.showToast("msg send from receiver");
+                            Log.v(TAG, "msg send from receiver");
+                        }
 //                        }
                     }
                 }
@@ -160,10 +163,10 @@ public class ScanReceiver extends BroadcastReceiver {
 
         address = SharedPreferenceUtil.getInstance().getStringValue(SharedPreferenceUtil.MAC_ADD, null);
         if (address != null) {
-            if (bleConnection == null){
+            if (bleConnection == null) {
                 bleConnection = BLEConnection.getInstance();
             }
-                // After ble connection
+            // After ble connection
 //            if (bleConnection.isConnected(address)) {
 //
 //            } else {
@@ -224,8 +227,10 @@ public class ScanReceiver extends BroadcastReceiver {
             if (location[0] == null) {
                 location[0] = Utils.getLocation(BaseActivity.activity);
             }
-            Log.v("", "Latitude  :		" + location[0].getLatitude() + "\n");
-            Log.v("", "Langitude :		" + location[0].getLongitude() + "\n");
+            if (location[0] != null) {
+                Log.v("", "Latitude  :		" + location[0].getLatitude() + "\n");
+                Log.v("", "Langitude :		" + location[0].getLongitude() + "\n");
+            }
         }
         return location[0];
     }
